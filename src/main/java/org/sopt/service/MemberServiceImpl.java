@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.sopt.constant.ErrorMessage.DUPLICATE_EMAIL;
+import static org.sopt.constant.ErrorMessage.MEMBER_NOT_FOUND;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -17,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 
     public Long join(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {
         checkEmailDuplicate(email);
-        
+
         Member member = new Member(sequence++, name,
                 LocalDate.of(birthYear, birthMonth, birthDay),
                 email,
@@ -38,5 +39,15 @@ public class MemberServiceImpl implements MemberService {
 
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
+    }
+
+    public void deleteMember(Long memberId) {
+        Member member = findById(memberId);
+
+        memberRepository.deleteById(memberId);
+    }
+
+    private Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException(MEMBER_NOT_FOUND.getMessage()));
     }
 }
