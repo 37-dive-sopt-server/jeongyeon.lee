@@ -38,7 +38,18 @@ public class Main {
                         System.out.println("⚠️ 이름을 입력해주세요.");
                         continue;
                     }
-                    Long createdId = memberController.createMember(name);
+                    System.out.print("등록할 회원이 태어난 연도를 입력해주세요 : ");
+                    int birthYear = scanner.nextInt();
+                    System.out.print("등록할 회원이 태어난 달을 입력해주세요 :  ");
+                    int birthMonth = scanner.nextInt();
+                    System.out.print("등록할 회원이 태어난 일자를 입력해주세요 : ");
+                    int birthDay = scanner.nextInt();
+                    System.out.print("등록할 회원의 이메일을 입력해주세요 : ");
+                    String email = scanner.nextLine();
+                    System.out.print("등록할 회원의 성별을 입력해주세요. (MALE / FEMALE)");
+                    String gender = scanner.nextLine();
+
+                    Long createdId = memberController.createMember(name, birthYear, birthMonth, birthDay, email, gender);
                     if (createdId != null) {
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
                     } else {
