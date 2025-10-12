@@ -6,9 +6,7 @@ import java.util.*;
 
 public class MemoryMemberRepository {
 
-
     private static final Map<Long, Member> store = new HashMap<>();
-
 
     public Member save(Member member) {
 
@@ -17,7 +15,6 @@ public class MemoryMemberRepository {
 
     }
 
-
     public Optional<Member> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
@@ -25,6 +22,10 @@ public class MemoryMemberRepository {
 
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    public boolean existsByEmail(String email) {
+        return store.values().stream().anyMatch(member -> member.getEmail().equals(email));
     }
 
 }
