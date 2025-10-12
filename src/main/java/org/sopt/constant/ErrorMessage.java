@@ -7,6 +7,7 @@ public enum ErrorMessage {
     INVALID_EMAIL("이메일 형식으로 작성해주세요."),
     EMAIL_BLANK("이메일을 입력해주세요."),
     DUPLICATE_EMAIL("중복된 이메일입니다."),
+    MEMBER_NOT_FOUND("존재하지 않는 회원입니다.")
     ;
 
     private final String message;
