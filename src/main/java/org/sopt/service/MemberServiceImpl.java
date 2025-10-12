@@ -8,13 +8,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static org.sopt.constant.ErrorMessage.DUPLICATE_EMAIL;
+
 public class MemberServiceImpl implements MemberService {
 
     private final MemoryMemberRepository memberRepository =  new MemoryMemberRepository();
     private static long sequence = 1L;
 
     public Long join(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {
-
+        if(memberRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException(DUPLICATE_EMAIL.getMessage());
+        }
         Member member = new Member(sequence++, name,
                 LocalDate.of(birthYear, birthMonth, birthDay),
                 email,

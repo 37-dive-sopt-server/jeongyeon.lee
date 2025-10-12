@@ -21,7 +21,7 @@ public class MemberController {
         EmailValidator.validateEmail(email);
 
         GenderValidator.validateGender(gender);
-        
+
         return memberService.join(name, birthYear, birthMonth, birthDay, email, gender);
     }
 
