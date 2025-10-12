@@ -3,6 +3,9 @@ package org.sopt.controller;
 import org.sopt.domain.Member;
 import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
+import org.sopt.util.validator.EmailValidator;
+import org.sopt.util.validator.GenderValidator;
+import org.sopt.util.validator.MemberNameValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +14,14 @@ public class MemberController {
 
     private final MemberService memberService = new MemberServiceImpl();
 
-    public Long createMember(String name, int  birthYear, int birthMonth, int birthDay, String email, String gender) {
+    public Long createMember(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {
 
+        MemberNameValidator.validateName(name);
+
+        EmailValidator.validateEmail(email);
+
+        GenderValidator.validateGender(gender);
+        
         return memberService.join(name, birthYear, birthMonth, birthDay, email, gender);
     }
 
