@@ -41,4 +41,8 @@ public class Member {
     public Gender getGender() {
         return gender;
     }
+
+    public static Member create(Long id, String name, LocalDate birthDate, String email, Gender gender){
+        return new Member(id, name, birthDate, email, gender);
+    }
 }

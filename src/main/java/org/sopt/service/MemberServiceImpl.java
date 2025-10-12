@@ -19,10 +19,12 @@ public class MemberServiceImpl implements MemberService {
     public Long join(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {
         checkEmailDuplicate(email);
 
-        Member member = new Member(sequence++, name,
+        Member member = Member.create(sequence++,
+                name,
                 LocalDate.of(birthYear, birthMonth, birthDay),
                 email,
                 Gender.valueOf(gender));
+
         memberRepository.save(member);
         return member.getId();
     }
