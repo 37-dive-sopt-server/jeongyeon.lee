@@ -26,4 +26,5 @@ public class MemoryMemberRepository {
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
+    
 }
