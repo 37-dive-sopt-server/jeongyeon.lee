@@ -90,6 +90,7 @@ public class Main {
                         System.out.print("삭제할 회원의 ID를 입력해주세요 : ");
                         Long id =  Long.parseLong(scanner.nextLine());
                         memberController.deleteMember(id);
+                        break;
                     case "5":
                         System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
                         scanner.close();
