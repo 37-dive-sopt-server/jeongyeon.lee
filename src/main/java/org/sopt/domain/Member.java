@@ -1,6 +1,7 @@
 package org.sopt.domain;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Member {
 
@@ -44,5 +45,9 @@ public class Member {
 
     public static Member create(Long id, String name, LocalDate birthDate, String email, Gender gender){
         return new Member(id, name, birthDate, email, gender);
+    }
+
+    public int getAge(){
+        return Period.between(this.birthDate, LocalDate.now()).getYears();
     }
 }
