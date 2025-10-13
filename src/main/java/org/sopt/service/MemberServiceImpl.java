@@ -61,7 +61,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public List<Member> findAllMembers() {
-        return memberRepository.findAll();
+        List<Member> members = memberRepository.findAll();
+        if(members.isEmpty()){
+            throw new IllegalArgumentException(MEMBER_EMPTY.getMessage());
+        }
+        return members;
     }
 
     public void deleteMember(Long memberId) {

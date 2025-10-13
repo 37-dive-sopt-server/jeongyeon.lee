@@ -72,22 +72,24 @@ public class Main {
                         break;
                     case "3":
                         List<Member> allMembers = memberController.getAllMembers();
-                        if (allMembers.isEmpty()) {
-                            System.out.println("ℹ️ 등록된 회원이 없습니다.");
-                        }
-                        else {
-                            System.out.println("--- 📋 전체 회원 목록 📋 ---");
-                            for (Member member : allMembers) {
+                        System.out.println("--- 📋 전체 회원 목록 📋 ---");
+                        for (Member member : allMembers) {
                                 System.out.println("👤 ID=" + member.getId() + ", 이름=" + member.getName());
-                            }
-                            System.out.println("--------------------------");
                         }
+                        System.out.println("--------------------------");
+
                         break;
                     case "4":
                         System.out.println("--- 회원 삭제 ---");
                         System.out.print("삭제할 회원의 ID를 입력해주세요 : ");
-                        Long id =  Long.parseLong(scanner.nextLine());
-                        memberController.deleteMember(id);
+                        try{
+                            Long id =  Long.parseLong(scanner.nextLine());
+                            memberController.deleteMember(id);
+                            System.out.println(id + "번 회원 삭제 완료");
+                        } catch(NumberFormatException e){
+                            System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
+                        }
+                        
                         break;
                     case "5":
                         System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");

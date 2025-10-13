@@ -13,6 +13,7 @@ public enum ErrorMessage {
     MEMBER_SAVE_FAILED("회원 저장에 실패하였습니다."),
     MEMBER_LIST_FAILED("회원 목록 조회에 실패하였습니다."),
     FILE_UPDATE_FAILED("파일 갱신에 실패하였습니다."),
+    MEMBER_EMPTY("등록된 회원이 없습니다.")
     ;
 
     private final String message;
