@@ -10,64 +10,79 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static org.sopt.constant.ErrorMessage.*;
 
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";
+    private final Map<Long, Member> idMap = new HashMap<>();
+    private final Map<String, Long> emailMap = new HashMap<>();
 
     public FileMemberRepository() {
+        initFile();
+        loadAllToMemory();
+    }
+
+    private void initFile() {
         try {
             File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            if (!file.exists()) file.createNewFile();
         } catch (IOException e) {
             throw new RuntimeException(FILE_INIT_FAILED.getMessage());
         }
     }
 
     public Member save(Member member) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(formatMember(member));
-            writer.newLine();
-        } catch (IOException e) {
-            throw new RuntimeException(MEMBER_SAVE_FAILED.getMessage());
-        }
+        idMap.put(member.getId(), member);
+        emailMap.put(member.getEmail(), member.getId());
+        syncToFile();
         return member;
     }
 
     public Optional<Member> findById(Long id) {
-        return findAll().stream()
-                .filter(m -> Objects.equals(m.getId(), id))
-                .findFirst();
+        return Optional.ofNullable(idMap.get(id));
     }
 
     public List<Member> findAll() {
-        try (var lines = Files.lines(Paths.get(FILE_PATH))) {
-            return lines.filter(line -> !line.isBlank())
-                    .map(this::parseMember)
-                    .collect(Collectors.toList());
+        return new ArrayList<>(idMap.values());
+    }
+
+    public boolean existsByEmail(String email) {
+        return emailMap.containsKey(email.toLowerCase());
+    }
+
+    public void deleteById(Long id) {
+        Member removed = idMap.remove(id);
+        if (removed != null) {
+            emailMap.remove(removed.getEmail().toLowerCase());
+            syncToFile();
+        }
+    }
+
+    private void loadAllToMemory() {
+        try (var br = Files.newBufferedReader(Paths.get(FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.isBlank()) continue;
+                Member member = parseMember(line);
+                idMap.put(member.getId(), member);
+                emailMap.put(member.getEmail().toLowerCase(), member.getId());
+            }
         } catch (IOException e) {
             throw new RuntimeException(MEMBER_LIST_FAILED.getMessage());
         }
     }
 
-    public boolean existsByEmail(String email) {
-        return findAll().stream()
-                .anyMatch(m -> m.getEmail().equalsIgnoreCase(email));
-    }
-
-    public void deleteById(Long id) {
-        List<Member> members = findAll();
-        List<Member> updated = members.stream()
-                .filter(m -> !Objects.equals(m.getId(), id))
-                .collect(Collectors.toList());
-        overwriteFile(updated);
+    private void syncToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            for (Member member : idMap.values()) {
+                writer.write(formatMember(member));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(FILE_UPDATE_FAILED.getMessage());
+        }
     }
 
     private String formatMember(Member member) {
@@ -88,14 +103,4 @@ public class FileMemberRepository implements MemberRepository {
         return new Member(id, name, birthDate, email, gender);
     }
 
-    private void overwriteFile(List<Member> members) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
-            for (Member member : members) {
-                writer.write(formatMember(member));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(FILE_UPDATE_FAILED.getMessage());
-        }
-    }
 }
