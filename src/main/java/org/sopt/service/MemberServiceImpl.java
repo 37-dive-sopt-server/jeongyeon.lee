@@ -3,6 +3,7 @@ package org.sopt.service;
 import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
 import org.sopt.repository.FileMemberRepository;
+import org.sopt.repository.MemberRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +13,7 @@ import static org.sopt.constant.ErrorMessage.*;
 
 public class MemberServiceImpl implements MemberService {
 
-    private final FileMemberRepository memberRepository =  new FileMemberRepository();
+    private final MemberRepository memberRepository =  new FileMemberRepository();
     private static long sequence = 1L;
 
     public Long join(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {

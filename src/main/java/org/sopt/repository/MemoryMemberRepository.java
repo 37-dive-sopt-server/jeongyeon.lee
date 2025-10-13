@@ -4,7 +4,7 @@ import org.sopt.domain.Member;
 
 import java.util.*;
 
-public class MemoryMemberRepository {
+public class MemoryMemberRepository implements MemberRepository {
 
     private static final Map<Long, Member> store = new HashMap<>();
 

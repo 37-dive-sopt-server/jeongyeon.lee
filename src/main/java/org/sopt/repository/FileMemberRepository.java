@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static org.sopt.constant.ErrorMessage.*;
 
-public class FileMemberRepository {
+public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";
 
     public FileMemberRepository() {
