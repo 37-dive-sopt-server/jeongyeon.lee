@@ -8,8 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.sopt.constant.ErrorMessage.DUPLICATE_EMAIL;
-import static org.sopt.constant.ErrorMessage.MEMBER_NOT_FOUND;
+import static org.sopt.constant.ErrorMessage.*;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -25,8 +24,17 @@ public class MemberServiceImpl implements MemberService {
                 email,
                 Gender.valueOf(gender));
 
+        validateMemberAge(member);
+
         memberRepository.save(member);
         return member.getId();
+    }
+
+    private void validateMemberAge(Member member) {
+        int age = member.getAge();
+        if(age < 20){
+            throw new IllegalArgumentException(MEMBER_AGE_TOO_LOW.getMessage());
+        }
     }
 
     private void checkEmailDuplicate(String email) {
