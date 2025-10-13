@@ -8,7 +8,6 @@ import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -64,12 +63,9 @@ public class Main {
                         System.out.print("조회할 회원 ID를 입력하세요: ");
                         try {
                             Long id = Long.parseLong(scanner.nextLine());
-                            Optional<Member> foundMember = memberController.findMemberById(id);
-                            if (foundMember.isPresent()) {
-                                System.out.println("✅ 조회된 회원: ID=" + foundMember.get().getId() + ", 이름=" + foundMember.get().getName());
-                            } else {
-                                System.out.println("⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
-                            }
+                            Member foundMember = memberController.findMemberById(id);
+                            System.out.println("✅ 조회된 회원: ID=" + foundMember.getId() + ", 이름=" + foundMember.getName());
+
                         } catch (NumberFormatException e) {
                             System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
                         }

@@ -7,7 +7,6 @@ import org.sopt.repository.MemberRepository;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import static org.sopt.constant.ErrorMessage.*;
 
@@ -61,10 +60,6 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findById(memberId);
-    }
-
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
     }
@@ -75,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(memberId);
     }
 
-    private Member findById(Long memberId) {
+    public Member findById(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException(MEMBER_NOT_FOUND.getMessage()));
     }
 }

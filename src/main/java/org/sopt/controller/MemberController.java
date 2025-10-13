@@ -7,7 +7,6 @@ import org.sopt.util.validator.GenderValidator;
 import org.sopt.util.validator.MemberNameValidator;
 
 import java.util.List;
-import java.util.Optional;
 
 public class MemberController {
 
@@ -28,8 +27,8 @@ public class MemberController {
         return memberService.join(name, birthYear, birthMonth, birthDay, email, gender);
     }
 
-    public Optional<Member> findMemberById(Long id) {
-        return memberService.findOne(id);
+    public Member findMemberById(Long id) {
+        return memberService.findById(id);
     }
 
     public List<Member> getAllMembers() {
