@@ -48,9 +48,8 @@ public class FileMemberRepository implements MemberRepository {
     }
 
     public List<Member> findAll() {
-        try {
-            return Files.lines(Paths.get(FILE_PATH))
-                    .filter(line -> !line.isBlank())
+        try (var lines = Files.lines(Paths.get(FILE_PATH))) {
+            return lines.filter(line -> !line.isBlank())
                     .map(this::parseMember)
                     .collect(Collectors.toList());
         } catch (IOException e) {
