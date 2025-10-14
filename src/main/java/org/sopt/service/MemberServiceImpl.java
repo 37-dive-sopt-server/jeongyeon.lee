@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.sopt.constant.ErrorMessage.*;
+import static org.sopt.exception.constant.ErrorMessage.*;
 
 public class MemberServiceImpl implements MemberService {
 

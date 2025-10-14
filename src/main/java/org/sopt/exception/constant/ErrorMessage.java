@@ -1,4 +1,4 @@
-package org.sopt.constant;
+package org.sopt.exception.constant;
 
 public enum ErrorMessage {
     NAME_BLANK("이름을 입력해주세요."),

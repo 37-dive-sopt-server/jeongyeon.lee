@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
-import static org.sopt.constant.ErrorMessage.*;
+import static org.sopt.exception.constant.ErrorMessage.*;
 
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";

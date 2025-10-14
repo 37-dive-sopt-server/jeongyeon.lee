@@ -2,7 +2,7 @@ package org.sopt.util.validator;
 
 import java.util.regex.Pattern;
 
-import static org.sopt.constant.ErrorMessage.*;
+import static org.sopt.exception.constant.ErrorMessage.*;
 
 public class EmailValidator {
 

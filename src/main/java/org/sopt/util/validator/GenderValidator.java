@@ -4,8 +4,8 @@ import org.sopt.domain.Gender;
 
 import java.util.Arrays;
 
-import static org.sopt.constant.ErrorMessage.GENDER_BLANK;
-import static org.sopt.constant.ErrorMessage.INVALID_GENDER;
+import static org.sopt.exception.constant.ErrorMessage.GENDER_BLANK;
+import static org.sopt.exception.constant.ErrorMessage.INVALID_GENDER;
 
 public class GenderValidator {
     public static void validateGender(String gender) {

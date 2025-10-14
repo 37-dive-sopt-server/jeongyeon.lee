@@ -1,6 +1,6 @@
 package org.sopt.util.validator;
 
-import static org.sopt.constant.ErrorMessage.NAME_BLANK;
+import static org.sopt.exception.constant.ErrorMessage.NAME_BLANK;
 
 public class MemberNameValidator {
     public static void validateName(String name) {
