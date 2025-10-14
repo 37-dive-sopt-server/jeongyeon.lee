@@ -54,7 +54,7 @@ public class Main {
 
                         Long createdId = memberController.createMember(name, birthYear, birthMonth, birthDay, email, gender);
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
-                        
+
                         break;
                     case "2":
                         System.out.print("조회할 회원 ID를 입력하세요: ");

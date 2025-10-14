@@ -70,7 +70,7 @@ public class FileMemberRepository implements MemberRepository {
                 emailMap.put(member.getEmail().toLowerCase(), member.getId());
             }
         } catch (IOException e) {
-            throw new RuntimeException(MEMBER_LIST_FAILED.getMessage());
+            throw new RuntimeException(MEMBER_SAVE_FAILED.getMessage());
         }
     }
 
