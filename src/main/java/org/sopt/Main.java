@@ -53,11 +53,8 @@ public class Main {
                         String gender = scanner.nextLine();
 
                         Long createdId = memberController.createMember(name, birthYear, birthMonth, birthDay, email, gender);
-                        if (createdId != null) {
-                            System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
-                        } else {
-                            System.out.println("❌ 회원 등록 실패");
-                        }
+                        System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
+                        
                         break;
                     case "2":
                         System.out.print("조회할 회원 ID를 입력하세요: ");
@@ -89,7 +86,7 @@ public class Main {
                         } catch(NumberFormatException e){
                             System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
                         }
-                        
+
                         break;
                     case "5":
                         System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
