@@ -2,6 +2,7 @@ package org.sopt.repository;
 
 import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
+import org.sopt.exception.customexception.InternalException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,7 +30,7 @@ public class FileMemberRepository implements MemberRepository {
             File file = new File(FILE_PATH);
             if (!file.exists()) file.createNewFile();
         } catch (IOException e) {
-            throw new RuntimeException(FILE_INIT_FAILED.getMessage());
+            throw new InternalException(FILE_INIT_FAILED.getMessage());
         }
     }
 
@@ -70,7 +71,7 @@ public class FileMemberRepository implements MemberRepository {
                 emailMap.put(member.getEmail().toLowerCase(), member.getId());
             }
         } catch (IOException e) {
-            throw new RuntimeException(MEMBER_SAVE_FAILED.getMessage());
+            throw new InternalException(MEMBER_SAVE_FAILED.getMessage());
         }
     }
 
@@ -81,7 +82,7 @@ public class FileMemberRepository implements MemberRepository {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException(FILE_UPDATE_FAILED.getMessage());
+            throw new InternalException(FILE_UPDATE_FAILED.getMessage());
         }
     }
 

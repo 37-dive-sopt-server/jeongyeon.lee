@@ -9,6 +9,7 @@ public enum ErrorMessage {
     DUPLICATE_EMAIL("중복된 이메일입니다."),
     MEMBER_NOT_FOUND("존재하지 않는 회원입니다."),
     MEMBER_AGE_TOO_LOW("20세 미만의 회원은 가입이 불가능합니다."),
+
     FILE_INIT_FAILED("파일 초기화에 실패하였습니다."),
     MEMBER_SAVE_FAILED("회원 저장에 실패하였습니다."),
     MEMBER_LIST_FAILED("회원 목록 조회에 실패하였습니다."),

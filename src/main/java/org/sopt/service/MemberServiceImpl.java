@@ -2,6 +2,7 @@ package org.sopt.service;
 
 import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
+import org.sopt.exception.customexception.BadRequestException;
 import org.sopt.repository.MemberRepository;
 
 import java.time.LocalDate;
@@ -50,20 +51,20 @@ public class MemberServiceImpl implements MemberService {
     private void validateMemberAge(Member member) {
         int age = member.getAge();
         if(age < 20){
-            throw new IllegalArgumentException(MEMBER_AGE_TOO_LOW.getMessage());
+            throw new BadRequestException(MEMBER_AGE_TOO_LOW.getMessage());
         }
     }
 
     private void checkEmailDuplicate(String email) {
         if(memberRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException(DUPLICATE_EMAIL.getMessage());
+            throw new BadRequestException(DUPLICATE_EMAIL.getMessage());
         }
     }
 
     public List<Member> findAllMembers() {
         List<Member> members = memberRepository.findAll();
         if(members.isEmpty()){
-            throw new IllegalArgumentException(MEMBER_EMPTY.getMessage());
+            throw new BadRequestException(MEMBER_EMPTY.getMessage());
         }
         return members;
     }
