@@ -17,6 +17,8 @@ public class MemberServiceImpl implements MemberService {
 
     private static long sequence = 1L;
 
+    private static final int MINIMUM_MEMBER_AGE = 20;
+
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
         initSequence();
@@ -50,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 
     private void validateMemberAge(Member member) {
         int age = member.getAge();
-        if(age < 20){
+        if(age < MINIMUM_MEMBER_AGE){
             throw new BadRequestException(MEMBER_AGE_TOO_LOW.getMessage());
         }
     }
