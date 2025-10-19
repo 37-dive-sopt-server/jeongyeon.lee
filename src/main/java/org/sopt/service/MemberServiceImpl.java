@@ -4,6 +4,7 @@ import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
 import org.sopt.exception.customexception.BadRequestException;
 import org.sopt.repository.MemberRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static org.sopt.exception.constant.ErrorMessage.*;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
