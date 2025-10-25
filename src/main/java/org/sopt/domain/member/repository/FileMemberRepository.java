@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
+import static org.sopt.global.exception.constant.ErrorCode.*;
+
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";
     private final Map<Long, Member> idMap = new HashMap<>();
@@ -28,7 +30,7 @@ public class FileMemberRepository implements MemberRepository {
             File file = new File(FILE_PATH);
             if (!file.exists()) file.createNewFile();
         } catch (IOException e) {
-            throw new InternalException(FILE_INIT_FAILED.getMessage());
+            throw new InternalException(FILE_INIT_FAILED);
         }
     }
 
@@ -69,7 +71,7 @@ public class FileMemberRepository implements MemberRepository {
                 emailMap.put(member.getEmail().toLowerCase(), member.getId());
             }
         } catch (IOException e) {
-            throw new InternalException(MEMBER_SAVE_FAILED.getMessage());
+            throw new InternalException(MEMBER_SAVE_FAILED);
         }
     }
 
@@ -80,7 +82,7 @@ public class FileMemberRepository implements MemberRepository {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new InternalException(FILE_UPDATE_FAILED.getMessage());
+            throw new InternalException(FILE_UPDATE_FAILED);
         }
     }
 

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
+import static org.sopt.global.exception.constant.ErrorCode.*;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -53,22 +55,18 @@ public class MemberServiceImpl implements MemberService {
     private void validateMemberAge(Member member) {
         int age = member.getAge();
         if(age < MINIMUM_MEMBER_AGE){
-            throw new BadRequestException(MEMBER_AGE_TOO_LOW.getMessage());
+            throw new BadRequestException(MEMBER_AGE_TOO_LOW);
         }
     }
 
     private void checkEmailDuplicate(String email) {
         if(memberRepository.existsByEmail(email)) {
-            throw new BadRequestException(DUPLICATE_EMAIL.getMessage());
+            throw new BadRequestException(DUPLICATE_EMAIL);
         }
     }
 
     public List<Member> findAllMembers() {
-        List<Member> members = memberRepository.findAll();
-        if(members.isEmpty()){
-            throw new BadRequestException(MEMBER_EMPTY.getMessage());
-        }
-        return members;
+        return memberRepository.findAll();
     }
 
     public void deleteMember(Long memberId) {

@@ -1,6 +1,10 @@
 package org.sopt.global.validator;
 
+import org.sopt.global.exception.customexception.BadRequestException;
+
 import java.util.regex.Pattern;
+
+import static org.sopt.global.exception.constant.ErrorCode.*;
 
 public class EmailValidator {
 
@@ -10,11 +14,11 @@ public class EmailValidator {
 
     public static void validateEmail(String email) {
         if(email == null || email.trim().isEmpty()) {
-            throw new IllegalArgumentException(EMAIL_BLANK.getMessage());
+            throw new BadRequestException(EMAIL_BLANK);
         }
 
         if (!EMAIL_PATTERN.matcher(email).matches()) {
-            throw new IllegalArgumentException(INVALID_EMAIL.getMessage());
+            throw new BadRequestException(INVALID_EMAIL);
         }
 
     }
