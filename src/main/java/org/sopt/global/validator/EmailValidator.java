@@ -1,8 +1,6 @@
-package org.sopt.util.validator;
+package org.sopt.global.validator;
 
 import java.util.regex.Pattern;
-
-import static org.sopt.exception.constant.ErrorMessage.*;
 
 public class EmailValidator {
 

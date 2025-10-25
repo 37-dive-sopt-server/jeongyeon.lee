@@ -1,6 +1,6 @@
-package org.sopt.service;
+package org.sopt.domain.member.service;
 
-import org.sopt.domain.Member;
+import org.sopt.domain.member.entity.Member;
 
 import java.util.List;
 

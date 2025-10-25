@@ -1,10 +1,10 @@
-package org.sopt.controller;
+package org.sopt.domain.member.controller;
 
-import org.sopt.domain.Member;
-import org.sopt.service.MemberService;
-import org.sopt.util.validator.EmailValidator;
-import org.sopt.util.validator.GenderValidator;
-import org.sopt.util.validator.MemberNameValidator;
+import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.service.MemberService;
+import org.sopt.global.validator.EmailValidator;
+import org.sopt.global.validator.GenderValidator;
+import org.sopt.global.validator.MemberNameValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,11 +1,11 @@
-package org.sopt.util.validator;
+package org.sopt.global.validator;
 
-import org.sopt.domain.Gender;
+import org.sopt.domain.member.constant.Gender;
 
 import java.util.Arrays;
 
-import static org.sopt.exception.constant.ErrorMessage.GENDER_BLANK;
-import static org.sopt.exception.constant.ErrorMessage.INVALID_GENDER;
+import static org.sopt.global.exception.constant.ErrorMessage.GENDER_BLANK;
+import static org.sopt.global.exception.constant.ErrorMessage.INVALID_GENDER;
 
 public class GenderValidator {
     public static void validateGender(String gender) {

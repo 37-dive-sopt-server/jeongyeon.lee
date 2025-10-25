@@ -1,4 +1,4 @@
-package org.sopt.exception.customexception;
+package org.sopt.global.exception.customexception;
 
 public abstract class CustomException extends RuntimeException {
 

@@ -1,4 +1,6 @@
-package org.sopt.domain;
+package org.sopt.domain.member.entity;
+
+import org.sopt.domain.member.constant.Gender;
 
 import java.time.LocalDate;
 import java.time.Period;

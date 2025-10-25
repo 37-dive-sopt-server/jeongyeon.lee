@@ -1,8 +1,8 @@
-package org.sopt.repository;
+package org.sopt.domain.member.repository;
 
-import org.sopt.domain.Gender;
-import org.sopt.domain.Member;
-import org.sopt.exception.customexception.InternalException;
+import org.sopt.domain.member.constant.Gender;
+import org.sopt.domain.member.entity.Member;
+import org.sopt.global.exception.customexception.InternalException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-
-import static org.sopt.exception.constant.ErrorMessage.*;
 
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";

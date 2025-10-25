@@ -1,8 +1,8 @@
-package org.sopt.util.validator;
+package org.sopt.global.validator;
 
-import org.sopt.exception.customexception.BadRequestException;
+import org.sopt.global.exception.customexception.BadRequestException;
 
-import static org.sopt.exception.constant.ErrorMessage.NAME_BLANK;
+import static org.sopt.global.exception.constant.ErrorMessage.NAME_BLANK;
 
 public class MemberNameValidator {
     public static void validateName(String name) {

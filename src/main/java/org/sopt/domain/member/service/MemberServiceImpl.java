@@ -1,16 +1,14 @@
-package org.sopt.service;
+package org.sopt.domain.member.service;
 
-import org.sopt.domain.Gender;
-import org.sopt.domain.Member;
-import org.sopt.exception.customexception.BadRequestException;
-import org.sopt.repository.MemberRepository;
+import org.sopt.domain.member.constant.Gender;
+import org.sopt.domain.member.entity.Member;
+import org.sopt.global.exception.customexception.BadRequestException;
+import org.sopt.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-
-import static org.sopt.exception.constant.ErrorMessage.*;
 
 @Service
 public class MemberServiceImpl implements MemberService {
