@@ -1,7 +1,9 @@
 package org.sopt.global.exception.customexception;
 
+import org.sopt.global.exception.constant.ErrorCode;
+
 public class InternalException extends CustomException {
-    public InternalException(String message) {
-        super(message);
+    public InternalException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }
