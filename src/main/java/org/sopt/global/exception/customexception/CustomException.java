@@ -20,4 +20,16 @@ public abstract class CustomException extends RuntimeException {
         this.messageDetail = messageDetail;
     }
 
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public String getMessageDetail() {
+        return messageDetail;
+    }
 }
