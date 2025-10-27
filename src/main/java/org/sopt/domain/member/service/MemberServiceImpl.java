@@ -37,12 +37,12 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public Long join(String name, int birthYear, int birthMonth, int birthDay, String email, String gender) {
+    public Long join(String name, String birthDate, String email, String gender) {
         checkEmailDuplicate(email);
 
         Member member = Member.create(sequence++,
                 name,
-                LocalDate.of(birthYear, birthMonth, birthDay),
+                LocalDate.parse(birthDate),
                 email,
                 Gender.valueOf(gender));
 
