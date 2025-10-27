@@ -33,9 +33,9 @@ public class MemberController {
         return BaseResponse.create(memberService.join(request.name(), request.birthDate(), request.email(), request.gender()));
     }
 
-    @GetMapping()
-    public BaseResponse<MemberDetailResponse> findMemberById(Long id) {
-        return BaseResponse.ok(memberService.getMemberDetail(id));
+    @GetMapping("{memberId}")
+    public BaseResponse<MemberDetailResponse> findMemberById(@PathVariable Long memberId) {
+        return BaseResponse.ok(memberService.getMemberDetail(memberId));
     }
 
     @GetMapping("all")
