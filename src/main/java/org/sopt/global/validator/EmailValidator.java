@@ -4,7 +4,8 @@ import org.sopt.global.exception.customexception.BadRequestException;
 
 import java.util.regex.Pattern;
 
-import static org.sopt.global.exception.constant.ErrorCode.*;
+import static org.sopt.global.exception.constant.MemberErrorCode.EMAIL_BLANK;
+import static org.sopt.global.exception.constant.MemberErrorCode.INVALID_EMAIL;
 
 public class EmailValidator {
 

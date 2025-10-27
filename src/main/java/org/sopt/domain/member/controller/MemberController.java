@@ -3,6 +3,7 @@ package org.sopt.domain.member.controller;
 import org.sopt.domain.member.dto.request.MemberCreateRequest;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.service.MemberService;
+import org.sopt.global.response.BaseResponse;
 import org.sopt.global.validator.EmailValidator;
 import org.sopt.global.validator.GenderValidator;
 import org.sopt.global.validator.MemberNameValidator;
@@ -21,7 +22,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public Long createMember(MemberCreateRequest request) {
+    public BaseResponse<Long> createMember(MemberCreateRequest request) {
 
         MemberNameValidator.validateName(request.name());
 
@@ -29,21 +30,22 @@ public class MemberController {
 
         GenderValidator.validateGender(request.gender());
 
-        return memberService.join(request.name(), request.birthDate(), request.email(), request.gender());
+        return BaseResponse.create(memberService.join(request.name(), request.birthDate(), request.email(), request.gender()));
     }
 
     @GetMapping()
-    public MemberDetailResponse findMemberById(Long id) {
-        return memberService.getMemberDetail(id);
+    public BaseResponse<MemberDetailResponse> findMemberById(Long id) {
+        return BaseResponse.ok(memberService.getMemberDetail(id));
     }
 
     @GetMapping("all")
-    public List<MemberDetailResponse> getAllMembers() {
-        return memberService.findAllMembers();
+    public BaseResponse<List<MemberDetailResponse>> getAllMembers() {
+        return BaseResponse.ok(memberService.findAllMembers());
     }
 
     @DeleteMapping
-    public void deleteMember(Long memberId) {
+    public BaseResponse<Void> deleteMember(Long memberId) {
         memberService.deleteMember(memberId);
+        return BaseResponse.ok(null);
     }
 }

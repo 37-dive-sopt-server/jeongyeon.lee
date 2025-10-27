@@ -13,7 +13,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
-import static org.sopt.global.exception.constant.ErrorCode.*;
+import static org.sopt.global.exception.constant.GlobalErrorCode.FILE_INIT_FAILED;
+import static org.sopt.global.exception.constant.GlobalErrorCode.FILE_UPDATE_FAILED;
+import static org.sopt.global.exception.constant.MemberErrorCode.MEMBER_SAVE_FAILED;
 
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";

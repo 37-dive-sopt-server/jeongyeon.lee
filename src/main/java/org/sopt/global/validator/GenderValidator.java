@@ -5,8 +5,8 @@ import org.sopt.global.exception.customexception.BadRequestException;
 
 import java.util.Arrays;
 
-import static org.sopt.global.exception.constant.ErrorCode.GENDER_BLANK;
-import static org.sopt.global.exception.constant.ErrorCode.INVALID_GENDER;
+import static org.sopt.global.exception.constant.MemberErrorCode.GENDER_BLANK;
+import static org.sopt.global.exception.constant.MemberErrorCode.INVALID_GENDER;
 
 public class GenderValidator {
     public static void validateGender(String gender) {

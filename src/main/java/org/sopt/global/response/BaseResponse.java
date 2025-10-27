@@ -24,12 +24,20 @@ public class BaseResponse<T> {
         return new BaseResponse<>(HttpStatus.OK.value(), null, message);
     }
 
+    public static <T> BaseResponse<T> ok(T data){
+        return new BaseResponse<>(HttpStatus.OK.value(), data, null);
+    }
+
     public static <T> BaseResponse<T> create(T data, String message) {
         return new BaseResponse<>(HttpStatus.CREATED.value(), data, message);
     }
 
     public static <T> BaseResponse<T> create(String message) {
         return new BaseResponse<>(HttpStatus.CREATED.value(), null, message);
+    }
+
+    public static <T> BaseResponse<T> create(T data) {
+        return new BaseResponse<>(HttpStatus.CREATED.value(), data, null);
     }
 
     public int getCode() {

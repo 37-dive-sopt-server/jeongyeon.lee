@@ -5,13 +5,14 @@ import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.customexception.BadRequestException;
+import org.sopt.global.exception.customexception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.sopt.global.exception.constant.ErrorCode.*;
+import static org.sopt.global.exception.constant.MemberErrorCode.*;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -84,6 +85,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Member findById(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException(MEMBER_NOT_FOUND.getMessage()));
+        return memberRepository.findById(memberId).orElseThrow(() -> new NotFoundException(MEMBER_NOT_FOUND));
     }
 }
