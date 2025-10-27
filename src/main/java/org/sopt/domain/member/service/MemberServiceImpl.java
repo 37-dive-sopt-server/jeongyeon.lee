@@ -1,9 +1,10 @@
 package org.sopt.domain.member.service;
 
 import org.sopt.domain.member.constant.Gender;
+import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.entity.Member;
-import org.sopt.global.exception.customexception.BadRequestException;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.global.exception.customexception.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -65,14 +66,21 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public List<Member> findAllMembers() {
-        return memberRepository.findAll();
+    public List<MemberDetailResponse> findAllMembers() {
+        return memberRepository.findAll().stream()
+                .map(MemberDetailResponse::from)
+                .toList();
     }
 
     public void deleteMember(Long memberId) {
         Member member = findById(memberId);
 
         memberRepository.deleteById(memberId);
+    }
+
+    public MemberDetailResponse getMemberDetail(Long memberId) {
+        Member member = findById(memberId);
+        return MemberDetailResponse.from(member);
     }
 
     public Member findById(Long memberId) {
