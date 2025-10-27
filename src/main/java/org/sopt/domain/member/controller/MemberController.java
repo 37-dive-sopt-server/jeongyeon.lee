@@ -30,22 +30,22 @@ public class MemberController {
 
         GenderValidator.validateGender(request.gender());
 
-        return BaseResponse.create(memberService.join(request.name(), request.birthDate(), request.email(), request.gender()));
+        return BaseResponse.create(memberService.join(request.name(), request.birthDate(), request.email(), request.gender()),"회원 생성 완료");
     }
 
     @GetMapping("{memberId}")
     public BaseResponse<MemberDetailResponse> findMemberById(@PathVariable Long memberId) {
-        return BaseResponse.ok(memberService.getMemberDetail(memberId));
+        return BaseResponse.ok(memberService.getMemberDetail(memberId), "회원 조회 완료");
     }
 
     @GetMapping("all")
     public BaseResponse<List<MemberDetailResponse>> getAllMembers() {
-        return BaseResponse.ok(memberService.findAllMembers());
+        return BaseResponse.ok(memberService.findAllMembers(),"회원 목록 조회 완료");
     }
 
-    @DeleteMapping
-    public BaseResponse<Void> deleteMember(Long memberId) {
+    @DeleteMapping("{memberId}")
+    public BaseResponse<Void> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMember(memberId);
-        return BaseResponse.ok(null);
+        return BaseResponse.ok("회원 삭제 완료");
     }
 }
