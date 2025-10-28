@@ -4,12 +4,12 @@ import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.domain.member.util.IdGenerator;
 import org.sopt.global.exception.customexception.BadRequestException;
 import org.sopt.global.exception.customexception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
 import static org.sopt.global.exception.constant.MemberErrorCode.*;
@@ -19,30 +19,18 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    private static long sequence = 1L;
-
     private static final int MINIMUM_MEMBER_AGE = 20;
 
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        initSequence();
-    }
-
-    private void initSequence(){
-        List<Member> members = memberRepository.findAll();
-        if(!members.isEmpty()){
-            Long lastId = members.stream()
-                    .map(Member::getId)
-                    .max(Comparator.naturalOrder())
-                    .orElse(0L);
-            sequence = lastId + 1;
-        }
     }
 
     public Long join(String name, String birthDate, String email, String gender) {
         checkEmailDuplicate(email);
 
-        Member member = Member.create(sequence++,
+        long memberId = IdGenerator.nextId();
+
+        Member member = Member.create(memberId,
                 name,
                 LocalDate.parse(birthDate),
                 email,

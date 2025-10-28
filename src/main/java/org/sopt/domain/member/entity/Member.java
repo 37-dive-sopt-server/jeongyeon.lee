@@ -17,7 +17,7 @@ public class Member {
 
     private Gender gender;
 
-    public Member(Long id, String name, LocalDate birthDate, String email, Gender gender) {
+    private Member(Long id, String name, LocalDate birthDate, String email, Gender gender) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;

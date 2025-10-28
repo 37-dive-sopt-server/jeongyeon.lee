@@ -105,7 +105,7 @@ public class FileMemberRepository implements MemberRepository {
         LocalDate birthDate = LocalDate.parse(parts[2]);
         String email = parts[3];
         Gender gender = Gender.valueOf(parts[4].toUpperCase());
-        return new Member(id, name, birthDate, email, gender);
+        return Member.create(id, name, birthDate, email, gender);
     }
 
 }
