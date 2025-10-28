@@ -3,6 +3,7 @@ package org.sopt.domain.member.repository;
 import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.global.exception.customexception.InternalException;
+import org.springframework.stereotype.Repository;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,6 +18,7 @@ import static org.sopt.global.exception.constant.GlobalErrorCode.FILE_INIT_FAILE
 import static org.sopt.global.exception.constant.GlobalErrorCode.FILE_UPDATE_FAILED;
 import static org.sopt.global.exception.constant.MemberErrorCode.MEMBER_SAVE_FAILED;
 
+@Repository
 public class FileMemberRepository implements MemberRepository {
     private static final String FILE_PATH = "members.txt";
     private final Map<Long, Member> idMap = new HashMap<>();

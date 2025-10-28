@@ -1,10 +1,12 @@
 package org.sopt.domain.member.repository;
 
 import org.sopt.domain.member.entity.Member;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Primary
 @Repository
 public class MemoryMemberRepository implements MemberRepository {
 
