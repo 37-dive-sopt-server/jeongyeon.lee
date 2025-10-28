@@ -1,24 +1,17 @@
 package org.sopt.global.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.sopt.domain.member.constant.Gender;
-import org.sopt.global.exception.customexception.BadRequestException;
+import org.sopt.global.annotation.ValidGender;
 
 import java.util.Arrays;
 
-import static org.sopt.global.exception.constant.MemberErrorCode.GENDER_BLANK;
-import static org.sopt.global.exception.constant.MemberErrorCode.INVALID_GENDER;
+public class GenderValidator implements ConstraintValidator<ValidGender, String> {
 
-public class GenderValidator {
-    public static void validateGender(String gender) {
-        if (gender == null || gender.trim().isEmpty()) {
-            throw new BadRequestException(GENDER_BLANK);
-        }
-
-        boolean isValid = Arrays.stream(Gender.values())
-                .anyMatch(g -> g.name().equalsIgnoreCase(gender.trim()));
-
-        if (!isValid) {
-            throw new BadRequestException(INVALID_GENDER);
-        }
+    @Override
+    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+        if(s == null || s.trim().isEmpty()) {return false;}
+        return Arrays.stream(Gender.values()).anyMatch(g -> g.name().equalsIgnoreCase(s.trim()));
     }
 }
