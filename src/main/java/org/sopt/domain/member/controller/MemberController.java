@@ -30,7 +30,7 @@ public class MemberController {
         return BaseResponse.ok(memberService.getMemberDetail(memberId), "회원 조회 완료");
     }
 
-    @GetMapping("all")
+    @GetMapping()
     public BaseResponse<List<MemberDetailResponse>> getAllMembers() {
         return BaseResponse.ok(memberService.findAllMembers(),"회원 목록 조회 완료");
     }
