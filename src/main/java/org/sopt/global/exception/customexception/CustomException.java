@@ -1,0 +1,35 @@
+package org.sopt.global.exception.customexception;
+
+import org.sopt.global.exception.constant.ErrorCode;
+
+public abstract class CustomException extends RuntimeException {
+
+    private final ErrorCode errorCode;
+    private final String message;
+    private final String messageDetail;
+
+    public CustomException(ErrorCode errorCode) {
+        this.errorCode = errorCode;
+        this.message = errorCode.getMessage();
+        this.messageDetail = null;
+    }
+
+    public CustomException(ErrorCode errorCode, String messageDetail) {
+        this.errorCode = errorCode;
+        this.message = errorCode.getMessage();
+        this.messageDetail = messageDetail;
+    }
+
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public String getMessageDetail() {
+        return messageDetail;
+    }
+}
