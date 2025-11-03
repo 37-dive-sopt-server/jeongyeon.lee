@@ -3,6 +3,7 @@ package org.sopt.domain.member.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
+import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.customexception.CustomException;
@@ -50,10 +51,11 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public List<MemberDetailResponse> findAllMembers() {
-        return memberRepository.findAll().stream()
+    public MemberListResponse findAllMembers() {
+        List<MemberDetailResponse> memberDetails = memberRepository.findAll().stream()
                 .map(MemberDetailResponse::from)
                 .toList();
+        return new MemberListResponse(memberDetails);
     }
 
     public void deleteMember(Long memberId) {

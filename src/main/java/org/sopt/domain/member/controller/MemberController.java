@@ -4,11 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.dto.request.MemberCreateRequest;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
+import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.service.MemberService;
 import org.sopt.global.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class MemberController {
     }
 
     @GetMapping()
-    public BaseResponse<List<MemberDetailResponse>> getAllMembers() {
+    public BaseResponse<MemberListResponse> getAllMembers() {
         return BaseResponse.ok(memberService.findAllMembers(),"회원 목록 조회 완료");
     }
 
