@@ -3,6 +3,7 @@ package org.sopt.domain.article.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.constant.ArticleTag;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
+import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.member.entity.Member;
@@ -10,6 +11,8 @@ import org.sopt.domain.member.service.MemberServiceImpl;
 import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_NOT_FOUND;
 import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_TITLE_DUPLICATE;
@@ -40,6 +43,7 @@ public class ArticleService {
         }
     }
 
+    @Transactional(readOnly = true)
     public ArticleDetailResponse getArticleDetail(Long articleId){
         Article article = findById(articleId);
         return ArticleDetailResponse.from(article);
@@ -49,5 +53,12 @@ public class ArticleService {
         return articleRepository.findById(articleId).orElseThrow(() -> new CustomException(ARTICLE_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true)
+    public ArticleListResponse getArticleList(){
+        List<ArticleDetailResponse> articleDetails = articleRepository.findAll().stream()
+                .map(ArticleDetailResponse::from)
+                .toList();
+        return new ArticleListResponse(articleDetails);
+    }
 
 }
