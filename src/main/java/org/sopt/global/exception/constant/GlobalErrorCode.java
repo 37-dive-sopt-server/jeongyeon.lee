@@ -1,9 +1,11 @@
 package org.sopt.global.exception.constant;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@AllArgsConstructor
 public enum GlobalErrorCode implements ErrorCode {
     FILE_INIT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR.value(),"파일 초기화에 실패하였습니다."),
     FILE_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR.value(), "파일 갱신에 실패하였습니다."),
@@ -20,12 +22,6 @@ public enum GlobalErrorCode implements ErrorCode {
 
     private final int httpStatus;
     private final String message;
-
-    GlobalErrorCode(int httpStatus, String message) {
-        this.httpStatus = httpStatus;
-        this.message = message;
-    }
-
 
     @Override
     public int getHttpStatus() {

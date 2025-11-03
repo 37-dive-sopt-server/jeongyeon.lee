@@ -1,9 +1,12 @@
 package org.sopt.global.exception.constant;
 
+import lombok.AllArgsConstructor;
+
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
+@AllArgsConstructor
 public enum MemberErrorCode implements ErrorCode {
     NAME_BLANK(BAD_REQUEST.value(),"이름을 입력해주세요."),
     INVALID_GENDER(BAD_REQUEST.value(), "성별은 MALE / FEMALE로 입력해주세요."),
@@ -18,12 +21,6 @@ public enum MemberErrorCode implements ErrorCode {
 
     private final int httpStatus;
     private final String message;
-
-    MemberErrorCode(int httpStatus, String message) {
-        this.httpStatus = httpStatus;
-        this.message = message;
-    }
-
 
     @Override
     public int getHttpStatus() {

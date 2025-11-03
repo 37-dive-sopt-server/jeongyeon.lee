@@ -1,6 +1,7 @@
 package org.sopt.domain.member.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.member.constant.Gender;
 
@@ -9,6 +10,10 @@ import java.time.Period;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Member {
 
     @Id
@@ -28,39 +33,13 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Article> articles;
 
-    protected Member() {
-    }
-
-    private Member(Long id, String name, LocalDate birthDate, String email, Gender gender) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.gender = gender;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public static Member create(Long id, String name, LocalDate birthDate, String email, Gender gender){
-        return new Member(id, name, birthDate, email, gender);
+    public static Member create(String name, LocalDate birthDate, String email, Gender gender){
+        return Member.builder()
+                .name(name)
+                .birthDate(birthDate)
+                .email(email)
+                .gender(gender)
+                .build();
     }
 
     public int getAge(){

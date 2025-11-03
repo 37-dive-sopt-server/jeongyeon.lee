@@ -1,6 +1,7 @@
 package org.sopt.domain.member.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.dto.request.MemberCreateRequest;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.service.MemberService;
@@ -10,14 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("members")
 public class MemberController {
 
     private final MemberService memberService;
-
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     @PostMapping
     public BaseResponse<Long> createMember(@Valid @RequestBody MemberCreateRequest request) {

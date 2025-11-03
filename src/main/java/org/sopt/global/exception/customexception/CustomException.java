@@ -1,7 +1,9 @@
 package org.sopt.global.exception.customexception;
 
+import lombok.Getter;
 import org.sopt.global.exception.constant.ErrorCode;
 
+@Getter
 public abstract class CustomException extends RuntimeException {
 
     private final ErrorCode errorCode;
@@ -20,16 +22,4 @@ public abstract class CustomException extends RuntimeException {
         this.messageDetail = messageDetail;
     }
 
-    public ErrorCode getErrorCode() {
-        return errorCode;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public String getMessageDetail() {
-        return messageDetail;
-    }
 }

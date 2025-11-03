@@ -1,10 +1,10 @@
 package org.sopt.domain.member.service;
 
+import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
-import org.sopt.domain.member.util.IdGenerator;
 import org.sopt.global.exception.customexception.BadRequestException;
 import org.sopt.global.exception.customexception.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,22 +15,18 @@ import java.util.List;
 import static org.sopt.global.exception.constant.MemberErrorCode.*;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
     private static final int MINIMUM_MEMBER_AGE = 20;
 
-    public MemberServiceImpl(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
-
     public Long join(String name, String birthDate, String email, String gender) {
         checkEmailDuplicate(email);
 
-        long memberId = IdGenerator.nextId();
 
-        Member member = Member.create(memberId,
+        Member member = Member.create(
                 name,
                 LocalDate.parse(birthDate),
                 email,
