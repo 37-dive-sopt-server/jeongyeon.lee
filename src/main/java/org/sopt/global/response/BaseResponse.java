@@ -21,7 +21,6 @@ public class BaseResponse<T> {
     public static <T> BaseResponse<T> ok(T data, String message) {
         return new BaseResponse<>(HttpStatus.OK.value(), data, message);
     }
-
     public static <T> BaseResponse<T> ok(String message){
         return new BaseResponse<>(HttpStatus.OK.value(), null, message);
     }
