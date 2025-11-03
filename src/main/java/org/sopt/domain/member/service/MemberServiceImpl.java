@@ -5,14 +5,13 @@ import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
-import org.sopt.global.exception.customexception.BadRequestException;
-import org.sopt.global.exception.customexception.NotFoundException;
+import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.sopt.global.exception.constant.MemberErrorCode.*;
+import static org.sopt.domain.member.errorcode.MemberErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -41,13 +40,13 @@ public class MemberServiceImpl implements MemberService {
     private void validateMemberAge(Member member) {
         int age = member.getAge();
         if(age < MINIMUM_MEMBER_AGE){
-            throw new BadRequestException(MEMBER_AGE_TOO_LOW);
+            throw new CustomException(MEMBER_AGE_TOO_LOW);
         }
     }
 
     private void checkEmailDuplicate(String email) {
         if(memberRepository.existsByEmail(email)) {
-            throw new BadRequestException(DUPLICATE_EMAIL);
+            throw new CustomException(DUPLICATE_EMAIL);
         }
     }
 
@@ -69,6 +68,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Member findById(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(() -> new NotFoundException(MEMBER_NOT_FOUND));
+        return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
     }
 }

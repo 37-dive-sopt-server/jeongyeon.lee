@@ -6,7 +6,7 @@ import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.service.MemberServiceImpl;
-import org.sopt.global.exception.customexception.BadRequestException;
+import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +34,7 @@ public class ArticleService {
 
     private void checkTitleDuplicate(String title) {
         if(articleRepository.existsByTitle(title)){
-            throw new BadRequestException(ARTICLE_TITLE_DUPLICATE);
+            throw new CustomException(ARTICLE_TITLE_DUPLICATE);
         }
     }
 

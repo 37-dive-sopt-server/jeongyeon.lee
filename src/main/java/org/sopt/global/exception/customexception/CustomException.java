@@ -1,10 +1,10 @@
 package org.sopt.global.exception.customexception;
 
 import lombok.Getter;
-import org.sopt.global.exception.constant.ErrorCode;
+import org.sopt.global.exception.errorcode.ErrorCode;
 
 @Getter
-public abstract class CustomException extends RuntimeException {
+public class CustomException extends RuntimeException {
 
     private final ErrorCode errorCode;
     private final String message;
