@@ -1,10 +1,7 @@
 package org.sopt.domain.article.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.sopt.domain.article.constant.ArticleTag;
 import org.sopt.domain.member.entity.Member;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Builder
+@Getter
 public class Article {
 
     @Id
@@ -39,6 +37,7 @@ public class Article {
     private ArticleTag tag;
 
     @CreatedDate
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public static Article create(String title, String content, ArticleTag tag, Member member) {
