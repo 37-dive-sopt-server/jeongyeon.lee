@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_NOT_FOUND;
-import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_TITLE_DUPLICATE;
+import static org.sopt.domain.article.errorcode.ArticleErrorCode.*;
 
 @Service
 @Transactional
@@ -60,7 +59,21 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public ArticleListResponse getArticleList(){
-        List<ArticleDetailResponse> articleDetails = articleRepository.findAll().stream()
+        return toArticleListResponse(articleRepository.findAll());
+    }
+
+    @Transactional(readOnly = true)
+    public ArticleListResponse searchArticleByKeyword(String type, String keyword) {
+        List<Article> articles = switch (type.toUpperCase()) {
+            case "AUTHOR" -> articleRepository.searchByAuthorName(keyword);
+            case "TITLE"  -> articleRepository.searchByTitle(keyword);
+            default       -> throw new CustomException(INVALID_SEARCH_TYPE);
+        };
+        return toArticleListResponse(articles);
+    }
+
+    private ArticleListResponse toArticleListResponse(List<Article> articles) {
+        List<ArticleDetailResponse> articleDetails = articles.stream()
                 .map(ArticleDetailResponse::from)
                 .toList();
         return new ArticleListResponse(articleDetails);

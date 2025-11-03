@@ -30,4 +30,9 @@ public class ArticleController {
     public BaseResponse<ArticleListResponse> getArticleList(){
         return BaseResponse.ok(articleService.getArticleList(),"아티클 전체 조회에 성공하였습니다.");
     }
+
+    @GetMapping("search")
+    public BaseResponse<ArticleListResponse> searchArticleByKeyword(@RequestParam String type, @RequestParam String keyword){
+        return BaseResponse.ok(articleService.searchArticleByKeyword(type, keyword),"아티클 검색에 성공했습니다.");
+    }
 }
