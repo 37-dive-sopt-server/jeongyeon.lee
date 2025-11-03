@@ -1,6 +1,7 @@
 package org.sopt.domain.member.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import org.sopt.domain.member.service.dto.request.MemberCreateCommand;
 import org.sopt.global.annotation.ValidEmail;
 import org.sopt.global.annotation.ValidGender;
 
@@ -17,4 +18,7 @@ public record MemberCreateRequest(
         @ValidGender
         String gender
 ) {
+        public MemberCreateCommand toCommand() {
+            return new MemberCreateCommand(name, birthDate, email, gender);
+        }
 }

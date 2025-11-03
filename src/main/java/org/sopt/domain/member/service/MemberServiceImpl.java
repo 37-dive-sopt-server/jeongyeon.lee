@@ -6,6 +6,7 @@ import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.domain.member.service.dto.request.MemberCreateCommand;
 import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,14 @@ public class MemberServiceImpl implements MemberService {
 
     private static final int MINIMUM_MEMBER_AGE = 20;
 
-    public Long join(String name, String birthDate, String email, String gender) {
-        checkEmailDuplicate(email);
-
+    public Long join(MemberCreateCommand command) {
+        checkEmailDuplicate(command.email());
 
         Member member = Member.create(
-                name,
-                LocalDate.parse(birthDate),
-                email,
-                Gender.valueOf(gender));
+                command.name(),
+                LocalDate.parse(command.birthDate()),
+                command.email(),
+                Gender.valueOf(command.gender()));
 
         validateMemberAge(member);
 

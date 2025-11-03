@@ -18,8 +18,7 @@ public class MemberController {
 
     @PostMapping
     public BaseResponse<Long> createMember(@Valid @RequestBody MemberCreateRequest request) {
-        return BaseResponse.create(memberService.join(request.name(),
-                request.birthDate(), request.email(), request.gender()),"회원 생성 완료");
+        return BaseResponse.create(memberService.join(request.toCommand()),"회원 생성 완료");
     }
 
     @GetMapping("{memberId}")
