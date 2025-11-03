@@ -18,7 +18,7 @@ public class ArticleController {
 
     @PostMapping
     public BaseResponse<Long> createArticle(@Valid @RequestBody ArticleCreateRequest req){
-        return BaseResponse.ok(articleService.createArticle(req.memberId(), req.title(), req.content(), req.tag()),"아티클 생성이 완료되었습니다.");
+        return BaseResponse.ok(articleService.createArticle(req.toCommand()),"아티클 생성이 완료되었습니다.");
     }
 
     @GetMapping("{articleId}")

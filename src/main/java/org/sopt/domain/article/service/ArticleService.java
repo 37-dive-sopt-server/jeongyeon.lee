@@ -6,6 +6,7 @@ import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
+import org.sopt.domain.article.service.dto.request.ArticleCreateCommand;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.service.MemberServiceImpl;
 import org.sopt.global.exception.customexception.CustomException;
@@ -26,12 +27,16 @@ public class ArticleService {
 
     private final MemberServiceImpl memberService;
 
-    public Long createArticle(Long memberId, String title, String content, String tag){
-        checkTitleDuplicate(title);
+    public Long createArticle(ArticleCreateCommand command) {
+        checkTitleDuplicate(command.title());
 
-        Member member = memberService.findById(memberId);
+        Member member = memberService.findById(command.memberId());
 
-        Article article = Article.create(title, content, ArticleTag.valueOf(tag), member);
+        Article article = Article.create(command.title(),
+                command.content(),
+                ArticleTag.valueOf(command.tag()),
+                member);
+
         articleRepository.save(article);
 
         return article.getId();
