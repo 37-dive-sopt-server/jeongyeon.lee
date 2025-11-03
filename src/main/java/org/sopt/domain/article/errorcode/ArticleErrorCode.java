@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
 public enum ArticleErrorCode implements ErrorCode {
-    ARTICLE_TITLE_DUPLICATE(HttpStatus.CONFLICT.value(), "중복된 게시글 제목입니다.")
+    ARTICLE_TITLE_DUPLICATE(HttpStatus.CONFLICT.value(), "중복된 아티클 제목입니다."),
+    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "존재하지 않는 아티클입니다."),
     ;
 
     private final int httpStatus;
