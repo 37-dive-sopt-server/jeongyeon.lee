@@ -1,9 +1,22 @@
 package org.sopt.domain.article.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.sopt.domain.article.constant.ArticleTag;
 import org.sopt.domain.member.entity.Member;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+@Builder
 public class Article {
 
     @Id
@@ -14,4 +27,26 @@ public class Article {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String content;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ArticleTag tag;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    public static Article create(String title, String content, ArticleTag tag, Member member) {
+        return Article.builder()
+                .title(title)
+                .content(content)
+                .tag(tag)
+                .member(member)
+                .build();
+    }
 }
