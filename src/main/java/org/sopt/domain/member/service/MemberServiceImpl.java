@@ -2,6 +2,7 @@ package org.sopt.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.constant.Gender;
+import org.sopt.domain.member.constant.MemberConstant;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.entity.Member;
@@ -21,8 +22,6 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    private static final int MINIMUM_MEMBER_AGE = 20;
-
     public Long join(MemberCreateCommand command) {
         checkEmailDuplicate(command.email());
 
@@ -40,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 
     private void validateMemberAge(Member member) {
         int age = member.getAge();
-        if(age < MINIMUM_MEMBER_AGE){
+        if(age < MemberConstant.MEMBER_MINIMUM_AGE) {
             throw new CustomException(MEMBER_AGE_TOO_LOW);
         }
     }
