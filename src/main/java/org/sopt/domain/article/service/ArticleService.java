@@ -1,6 +1,7 @@
 package org.sopt.domain.article.service;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.domain.article.constant.ArticleSearchType;
 import org.sopt.domain.article.constant.ArticleTag;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
@@ -63,11 +64,10 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleListResponse searchArticleByKeyword(String type, String keyword) {
-        List<Article> articles = switch (type.toUpperCase()) {
-            case "AUTHOR" -> articleRepository.searchByAuthorName(keyword);
-            case "TITLE"  -> articleRepository.searchByTitle(keyword);
-            default       -> throw new CustomException(INVALID_SEARCH_TYPE);
+    public ArticleListResponse searchArticleByKeyword(ArticleSearchType type, String keyword) {
+        List<Article> articles = switch (type) {
+            case AUTHOR -> articleRepository.searchByAuthorName(keyword);
+            case TITLE  -> articleRepository.searchByTitle(keyword);
         };
         return toArticleListResponse(articles);
     }

@@ -2,6 +2,7 @@ package org.sopt.domain.article.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.sopt.domain.article.constant.ArticleSearchType;
 import org.sopt.domain.article.dto.request.ArticleCreateRequest;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
@@ -32,7 +33,7 @@ public class ArticleController {
     }
 
     @GetMapping("search")
-    public BaseResponse<ArticleListResponse> searchArticleByKeyword(@RequestParam String type, @RequestParam String keyword){
+    public BaseResponse<ArticleListResponse> searchArticleByKeyword(@RequestParam ArticleSearchType type, @RequestParam String keyword){
         return BaseResponse.ok(articleService.searchArticleByKeyword(type, keyword),"아티클 검색에 성공했습니다.");
     }
 }
