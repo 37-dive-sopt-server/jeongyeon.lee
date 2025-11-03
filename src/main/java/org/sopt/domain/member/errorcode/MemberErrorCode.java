@@ -1,6 +1,7 @@
-package org.sopt.global.exception.constant;
+package org.sopt.domain.member.errorcode;
 
 import lombok.AllArgsConstructor;
+import org.sopt.global.exception.errorcode.ErrorCode;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;

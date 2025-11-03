@@ -1,4 +1,4 @@
-package org.sopt.global.exception.constant;
+package org.sopt.global.exception.errorcode;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

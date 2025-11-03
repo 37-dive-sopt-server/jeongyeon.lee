@@ -2,7 +2,7 @@ package org.sopt.global.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.sopt.global.exception.constant.ErrorCode;
+import org.sopt.global.exception.errorcode.ErrorCode;
 
 @Getter
 @AllArgsConstructor

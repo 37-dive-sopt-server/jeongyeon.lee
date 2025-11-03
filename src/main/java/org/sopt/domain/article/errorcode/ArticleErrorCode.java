@@ -1,7 +1,7 @@
 package org.sopt.domain.article.errorcode;
 
 import lombok.AllArgsConstructor;
-import org.sopt.global.exception.constant.ErrorCode;
+import org.sopt.global.exception.errorcode.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
