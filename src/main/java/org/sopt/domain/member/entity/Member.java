@@ -7,6 +7,7 @@ import org.sopt.domain.member.constant.Gender;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,12 @@ public class Member {
     private Gender gender;
 
     @OneToMany(mappedBy = "member")
-    private List<Article> articles;
+    private List<Article> articles = new ArrayList<>();
+
+    public void addArticle(Article article) {
+        articles.add(article);
+        article.setMember(this);
+    }
 
     public static Member create(String name, LocalDate birthDate, String email, Gender gender){
         return Member.builder()

@@ -37,6 +37,7 @@ public class ArticleService {
                 ArticleTag.valueOf(command.tag()),
                 member);
 
+        member.addArticle(article);
         articleRepository.save(article);
 
         return article.getId();
