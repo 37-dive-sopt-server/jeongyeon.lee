@@ -61,7 +61,7 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public ArticleListResponse getArticleList(){
-        return toArticleListResponse(articleRepository.findAll());
+        return ArticleListResponse.from(articleRepository.findAll());
     }
 
     @Transactional(readOnly = true)
@@ -70,14 +70,7 @@ public class ArticleService {
             case AUTHOR -> articleRepository.searchByAuthorName(keyword);
             case TITLE  -> articleRepository.searchByTitle(keyword);
         };
-        return toArticleListResponse(articles);
-    }
-
-    private ArticleListResponse toArticleListResponse(List<Article> articles) {
-        List<ArticleDetailResponse> articleDetails = articles.stream()
-                .map(ArticleDetailResponse::from)
-                .toList();
-        return new ArticleListResponse(articleDetails);
+        return ArticleListResponse.from(articles);
     }
 
 }
