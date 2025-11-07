@@ -3,6 +3,7 @@ package org.sopt.domain.article.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.constant.ArticleSearchType;
 import org.sopt.domain.article.constant.ArticleTag;
+import org.sopt.domain.article.dto.response.ArticleCreateResponse;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.entity.Article;
@@ -27,7 +28,7 @@ public class ArticleService {
 
     private final MemberServiceImpl memberService;
 
-    public Long createArticle(ArticleCreateCommand command) {
+    public ArticleCreateResponse createArticle(ArticleCreateCommand command) {
         checkTitleDuplicate(command.title());
 
         Member member = memberService.findById(command.memberId());
@@ -40,7 +41,7 @@ public class ArticleService {
         member.addArticle(article);
         articleRepository.save(article);
 
-        return article.getId();
+        return ArticleCreateResponse.from(article);
     }
 
     private void checkTitleDuplicate(String title) {

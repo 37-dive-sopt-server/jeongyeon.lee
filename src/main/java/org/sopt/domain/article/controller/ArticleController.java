@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.constant.ArticleSearchType;
 import org.sopt.domain.article.dto.request.ArticleCreateRequest;
+import org.sopt.domain.article.dto.response.ArticleCreateResponse;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.service.ArticleService;
@@ -18,7 +19,7 @@ public class ArticleController {
     private final ArticleService  articleService;
 
     @PostMapping
-    public BaseResponse<Long> createArticle(@Valid @RequestBody ArticleCreateRequest req){
+    public BaseResponse<ArticleCreateResponse> createArticle(@Valid @RequestBody ArticleCreateRequest req){
         return BaseResponse.ok(articleService.createArticle(req.toCommand()),"아티클 생성이 완료되었습니다.");
     }
 
