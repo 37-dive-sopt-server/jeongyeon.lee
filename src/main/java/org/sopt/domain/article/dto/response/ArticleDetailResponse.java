@@ -29,7 +29,7 @@ public record ArticleDetailResponse(
         return new ArticleDetailResponse(
                 article.getId(),
                 article.getMember().getId(),
-                article.getMember().getName(),
+                article.getAuthorName(),
                 article.getTitle(),
                 article.getContent(),
                 article.getTag().toString(),

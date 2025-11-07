@@ -36,7 +36,8 @@ public class ArticleService {
         Article article = Article.create(command.title(),
                 command.content(),
                 ArticleTag.valueOf(command.tag()),
-                member);
+                member,
+                member.getName());
 
         member.addArticle(article);
         articleRepository.save(article);

@@ -41,12 +41,16 @@ public class Article {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public static Article create(String title, String content, ArticleTag tag, Member member) {
+    @Column(nullable = false)
+    private String authorName;
+
+    public static Article create(String title, String content, ArticleTag tag, Member member, String authorName) {
         return Article.builder()
                 .title(title)
                 .content(content)
                 .tag(tag)
                 .member(member)
+                .authorName(authorName)
                 .build();
     }
 }
