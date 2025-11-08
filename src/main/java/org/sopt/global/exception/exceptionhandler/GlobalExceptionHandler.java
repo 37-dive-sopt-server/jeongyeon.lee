@@ -20,7 +20,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.stream.Collectors;
 
-import static org.sopt.global.exception.constant.GlobalErrorCode.*;
+import static org.sopt.global.exception.errorcode.GlobalErrorCode.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

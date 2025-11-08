@@ -1,7 +1,11 @@
 package org.sopt.global.response;
 
-import org.sopt.global.exception.constant.ErrorCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.sopt.global.exception.errorcode.ErrorCode;
 
+@Getter
+@AllArgsConstructor
 public class BaseErrorResponse {
     private final int code;
     private final String message;
@@ -19,21 +23,4 @@ public class BaseErrorResponse {
         return new BaseErrorResponse(errorCode.getHttpStatus(),errorCode.getMessage(), messageDetail);
     }
 
-    public BaseErrorResponse(int code, String message, String messageDetail) {
-        this.code = code;
-        this.message = message;
-        this.messageDetail = messageDetail;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getMessageDetail() {
-        return messageDetail;
-    }
 }

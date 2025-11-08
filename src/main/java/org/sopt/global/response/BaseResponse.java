@@ -1,7 +1,9 @@
 package org.sopt.global.response;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class BaseResponse<T> {
 
     private final int code;
@@ -19,7 +21,6 @@ public class BaseResponse<T> {
     public static <T> BaseResponse<T> ok(T data, String message) {
         return new BaseResponse<>(HttpStatus.OK.value(), data, message);
     }
-
     public static <T> BaseResponse<T> ok(String message){
         return new BaseResponse<>(HttpStatus.OK.value(), null, message);
     }
@@ -40,15 +41,4 @@ public class BaseResponse<T> {
         return new BaseResponse<>(HttpStatus.CREATED.value(), data, null);
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
-        return data;
-    }
 }
