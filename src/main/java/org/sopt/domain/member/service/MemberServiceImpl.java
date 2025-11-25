@@ -9,6 +9,7 @@ import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.domain.member.service.dto.request.MemberCreateCommand;
 import org.sopt.global.exception.customexception.CustomException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,11 +23,14 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     public Long join(MemberCreateCommand command) {
         checkEmailDuplicate(command.email());
 
         Member member = Member.create(
                 command.name(),
+                passwordEncoder.encode(command.password()),
                 LocalDate.parse(command.birthDate()),
                 command.email(),
                 Gender.valueOf(command.gender()));

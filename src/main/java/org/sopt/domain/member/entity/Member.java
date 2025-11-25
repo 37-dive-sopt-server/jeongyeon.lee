@@ -22,6 +22,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String password;
+
     private String name;
 
     private LocalDate birthDate;
@@ -39,9 +41,10 @@ public class Member {
         article.setMember(this);
     }
 
-    public static Member create(String name, LocalDate birthDate, String email, Gender gender){
+    public static Member create(String name, String password, LocalDate birthDate, String email, Gender gender){
         return Member.builder()
                 .name(name)
+                .password(password)
                 .birthDate(birthDate)
                 .email(email)
                 .gender(gender)
