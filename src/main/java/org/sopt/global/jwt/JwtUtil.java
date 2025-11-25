@@ -41,12 +41,12 @@ public class JwtUtil {
         }
     }
 
-    public Long extractUserIdFromToken(String token) {
+    public Long extractMemberIdFromToken(String token) {
         try {
             Claims claims = getClaims(token);
             return Long.valueOf(claims.getSubject());
         } catch (Exception e) {
-            throw new CustomException(JWT_USER_ID_EXTRACTION_FAILED);
+            throw new CustomException(JWT_MEMBER_ID_EXTRACTION_FAILED);
         }
     }
 

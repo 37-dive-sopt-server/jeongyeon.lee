@@ -20,7 +20,7 @@ public enum GlobalErrorCode implements ErrorCode {
     MISSING_PATH_VARIABLE(HttpStatus.BAD_REQUEST.value(), "경로 변수 값이 누락되었습니다."),
     FORBIDDEN(HttpStatus.FORBIDDEN.value(), "권한이 없습니다."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다."),
-    JWT_USER_ID_EXTRACTION_FAILED(HttpStatus.UNAUTHORIZED.value(), "JWT에서 userId 추출 실패"),
+    JWT_MEMBER_ID_EXTRACTION_FAILED(HttpStatus.UNAUTHORIZED.value(), "JWT에서 memberId 추출 실패"),
     JWT_INVALID_SIGNATURE(HttpStatus.UNAUTHORIZED.value(), "잘못된 JWT 서명입니다."),
     JWT_EXPIRED(HttpStatus.UNAUTHORIZED.value(), "만료된 토큰입니다."),
     JWT_UNSUPPORTED(HttpStatus.UNAUTHORIZED.value(), "지원하지 않는 JWT입니다."),
