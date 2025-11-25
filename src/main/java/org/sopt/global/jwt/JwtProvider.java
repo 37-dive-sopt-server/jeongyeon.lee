@@ -18,11 +18,13 @@ import java.util.Date;
 public class JwtProvider {
 
     private final Long accessTokenExpireMillis;
+    private final Long refreshTokenExpireMillis;
     private final SecretKey secretKey;
 
     public JwtProvider(JwtProperties jwtProperties) {
         this.secretKey = Keys.hmacShaKeyFor(jwtProperties.secret().getBytes(StandardCharsets.UTF_8));
-        this.accessTokenExpireMillis = jwtProperties.accessTokenExpiredAt();
+        this.accessTokenExpireMillis = jwtProperties.accessTokenExpiration();
+        this.refreshTokenExpireMillis = jwtProperties.refreshTokenExpiration();
     }
 
     public String generateAccessToken(Long userId) {
@@ -30,6 +32,15 @@ public class JwtProvider {
                 .setSubject(String.valueOf(userId))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireMillis))
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String generateRefreshToken(Long userId) {
+        return Jwts.builder()
+                .setSubject(String.valueOf(userId))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireMillis))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
