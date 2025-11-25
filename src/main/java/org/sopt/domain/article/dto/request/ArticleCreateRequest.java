@@ -7,9 +7,6 @@ import org.sopt.domain.article.service.dto.request.ArticleCreateCommand;
 import org.sopt.global.annotation.ValidTag;
 
 public record ArticleCreateRequest(
-        @NotNull
-        @Schema(description = "회원 ID" ,example = "1")
-        Long memberId,
 
         @NotBlank(message = "제목은 비어있을 수 없습니다.")
         @Schema(description = "제목", example = "아")
@@ -24,6 +21,6 @@ public record ArticleCreateRequest(
         String tag
 ) {
     public ArticleCreateCommand toCommand(){
-            return new ArticleCreateCommand(memberId, title, content, tag);
+            return new ArticleCreateCommand(title, content, tag);
     }
 }
