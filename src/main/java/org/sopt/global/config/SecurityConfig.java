@@ -6,7 +6,6 @@ import org.sopt.global.jwt.CustomAccessDeniedHandler;
 import org.sopt.global.jwt.CustomAuthenticationEntryPoint;
 import org.sopt.global.jwt.JwtAuthenticationFilter;
 import org.sopt.global.jwt.JwtUtil;
-import org.sopt.global.jwt.constant.SwaggerPathConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -27,9 +26,8 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
 
     public static final String[] ALLOWED_PATHS = {
-            SwaggerPathConstants.SWAGGER_CONFIG,
-            SwaggerPathConstants.SWAGGER_UI,
-            SwaggerPathConstants.SWAGGER_DOCS
+            "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/swagger-config",
+            "/auth/login", "/members", "/auth/reissue"
     };
 
     @Bean
