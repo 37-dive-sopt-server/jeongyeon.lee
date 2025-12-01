@@ -8,6 +8,7 @@ import org.sopt.domain.article.dto.response.ArticleCreateResponse;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.service.ArticleService;
+import org.sopt.global.annotation.LoginMemberId;
 import org.sopt.global.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class ArticleController {
     private final ArticleService  articleService;
 
     @PostMapping
-    public BaseResponse<ArticleCreateResponse> createArticle(@Valid @RequestBody ArticleCreateRequest req){
-        return BaseResponse.ok(articleService.createArticle(req.toCommand()),"아티클 생성이 완료되었습니다.");
+    public BaseResponse<ArticleCreateResponse> createArticle(@LoginMemberId Long memberId, @Valid @RequestBody ArticleCreateRequest req){
+        return BaseResponse.ok(articleService.createArticle(memberId, req.toCommand()),"아티클 생성이 완료되었습니다.");
     }
 
     @GetMapping("{articleId}")

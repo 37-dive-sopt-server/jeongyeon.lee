@@ -11,6 +11,9 @@ public record MemberCreateRequest(
         @Schema(description = "이름", example = "이정연")
         String name,
 
+        @Schema(description = "비밀번호", example = "1234")
+        String password,
+
         @NotBlank(message = "생년월일은 필수 입력 사항입니다.")
         @Schema(description = "생년월일", example = "2000-11-12")
         String birthDate,
@@ -24,6 +27,6 @@ public record MemberCreateRequest(
         String gender
 ) {
         public MemberCreateCommand toCommand() {
-            return new MemberCreateCommand(name, birthDate, email, gender);
+            return new MemberCreateCommand(name, password, birthDate, email, gender);
         }
 }

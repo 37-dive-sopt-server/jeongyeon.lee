@@ -28,10 +28,10 @@ public class ArticleService {
 
     private final MemberServiceImpl memberService;
 
-    public ArticleCreateResponse createArticle(ArticleCreateCommand command) {
+    public ArticleCreateResponse createArticle(Long memberId, ArticleCreateCommand command) {
         checkTitleDuplicate(command.title());
 
-        Member member = memberService.findById(command.memberId());
+        Member member = memberService.findById(memberId);
 
         Article article = Article.create(command.title(),
                 command.content(),
