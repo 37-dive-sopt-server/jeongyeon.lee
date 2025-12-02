@@ -50,4 +50,9 @@ public class Comment {
             throw new CustomException(CommentErrorCode.COMMENT_LENGTH_OVER);
         }
     }
+
+    public void updateComment(String comment){
+        validateContent(comment);
+        this.content = comment;
+    }
 }
