@@ -9,8 +9,8 @@ import org.sopt.domain.article.dto.response.ArticleCreateResponse;
 import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.service.ArticleService;
-import org.sopt.domain.comment.dto.request.CreateCommentRequest;
-import org.sopt.domain.comment.dto.response.CreateCommentResponse;
+import org.sopt.domain.comment.dto.request.CommentRequest;
+import org.sopt.domain.comment.dto.response.CommentResponse;
 import org.sopt.domain.comment.service.CommentService;
 import org.sopt.global.annotation.LoginMemberId;
 import org.sopt.global.response.BaseResponse;
@@ -46,8 +46,14 @@ public class ArticleController {
     }
 
     @PostMapping("{articleId}/comments")
-    public BaseResponse<CreateCommentResponse> createComment(@PathVariable Long articleId, @LoginMemberId @Parameter(hidden = true) Long memberId,
-                                                             @Valid @RequestBody CreateCommentRequest req){
+    public BaseResponse<CommentResponse> createComment(@PathVariable Long articleId, @LoginMemberId @Parameter(hidden = true) Long memberId,
+                                                       @Valid @RequestBody CommentRequest req){
         return BaseResponse.create(commentService.createComment(articleId, memberId, req.toCommand()),"댓글 생성이 완료되었습니다.");
+    }
+
+    @PatchMapping("{articleId}/{commentId}")
+    public BaseResponse<CommentResponse> updateComment(@PathVariable Long articleId, @PathVariable Long commentId,
+                                                       @Valid @RequestBody CommentRequest req){
+        return BaseResponse.ok(commentService.updateComment(articleId, commentId, req.toCommand()),"댓글 수정이 완료되었습니다.");
     }
 }

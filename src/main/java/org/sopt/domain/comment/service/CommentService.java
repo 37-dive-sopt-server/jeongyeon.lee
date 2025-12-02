@@ -2,18 +2,20 @@ package org.sopt.domain.comment.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.entity.Article;
-import org.sopt.domain.article.errorcode.ArticleErrorCode;
 import org.sopt.domain.article.repository.ArticleRepository;
-import org.sopt.domain.comment.dto.response.CreateCommentResponse;
+import org.sopt.domain.comment.dto.response.CommentResponse;
 import org.sopt.domain.comment.entity.Comment;
 import org.sopt.domain.comment.repository.CommentRepository;
-import org.sopt.domain.comment.service.dto.request.CreateCommentCommand;
+import org.sopt.domain.comment.service.dto.request.CommentCommand;
 import org.sopt.domain.member.entity.Member;
-import org.sopt.domain.member.errorcode.MemberErrorCode;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_NOT_FOUND;
+import static org.sopt.domain.comment.errorcode.CommentErrorCode.COMMENT_NOT_FOUND;
+import static org.sopt.domain.member.errorcode.MemberErrorCode.MEMBER_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +29,7 @@ public class CommentService {
     private final ArticleRepository articleRepository;
 
     @Transactional
-    public CreateCommentResponse createComment(Long articleId, Long memberId, CreateCommentCommand command) {
+    public CommentResponse createComment(Long articleId, Long memberId, CommentCommand command) {
 
         Article article = findArticleById(articleId);
 
@@ -36,18 +38,26 @@ public class CommentService {
         Comment comment = Comment.create(command.content(), article, member);
         commentRepository.save(comment);
 
-        return new CreateCommentResponse(comment.getId());
+        return CommentResponse.from(comment);
     }
 
+    @Transactional
+    public CommentResponse updateComment(Long articleId, Long commentId, CommentCommand command) {
+        findArticleById(articleId);
 
+        Comment comment = commentRepository.findByIdAndArticleId(commentId, articleId).orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
 
+        comment.updateComment(command.content());
+
+        return CommentResponse.from(comment);
+    }
 
     private Article findArticleById(Long articleId) {
-        return articleRepository.findById(articleId).orElseThrow(() -> new CustomException(ArticleErrorCode.ARTICLE_NOT_FOUND));
+        return articleRepository.findById(articleId).orElseThrow(() -> new CustomException(ARTICLE_NOT_FOUND));
     }
 
     private Member findMemberById(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(MemberErrorCode.MEMBER_NOT_FOUND));
+        return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
     }
 
 }
