@@ -1,6 +1,6 @@
 package org.sopt.domain.comment.service.dto.request;
 
-public record CreateCommentCommand(
+public record CommentCommand(
         String content
 ) {
 }
