@@ -10,6 +10,7 @@ import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.service.ArticleService;
 import org.sopt.domain.comment.dto.request.CommentRequest;
+import org.sopt.domain.comment.dto.response.CommentListResponse;
 import org.sopt.domain.comment.dto.response.CommentResponse;
 import org.sopt.domain.comment.service.CommentService;
 import org.sopt.global.annotation.LoginMemberId;
@@ -61,5 +62,10 @@ public class ArticleController {
     public BaseResponse<Void> deleteComment(@PathVariable Long articleId, @PathVariable Long commentId){
         commentService.deleteComment(articleId, commentId);
         return BaseResponse.ok("댓글 삭제가 완료되었습니다.");
+    }
+
+    @GetMapping("{aritcleId}/comments")
+    public BaseResponse<CommentListResponse> getComments(@PathVariable Long aritcleId){
+        return BaseResponse.ok(commentService.findAllComments(aritcleId),"댓글 목록 조회 성공");
     }
 }

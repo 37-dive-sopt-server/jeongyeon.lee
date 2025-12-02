@@ -3,6 +3,7 @@ package org.sopt.domain.comment.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
+import org.sopt.domain.comment.dto.response.CommentListResponse;
 import org.sopt.domain.comment.dto.response.CommentResponse;
 import org.sopt.domain.comment.entity.Comment;
 import org.sopt.domain.comment.repository.CommentRepository;
@@ -12,6 +13,8 @@ import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_NOT_FOUND;
 import static org.sopt.domain.comment.errorcode.CommentErrorCode.COMMENT_NOT_FOUND;
@@ -51,7 +54,7 @@ public class CommentService {
 
         return CommentResponse.from(comment);
     }
-    
+
     @Transactional
     public void deleteComment(Long articleId, Long commentId) {
         findArticleById(articleId);
@@ -59,6 +62,12 @@ public class CommentService {
         Comment comment = findComment(articleId, commentId);
 
         commentRepository.delete(comment);
+    }
+
+    public CommentListResponse findAllComments(Long articleId) {
+        Article article = findArticleById(articleId);
+        List<Comment> articleList = commentRepository.findAllByArticle(article);
+        return CommentListResponse.from(articleList);
     }
 
     private Comment findComment(Long articleId, Long commentId) {
