@@ -35,7 +35,7 @@ public class CommentService {
 
         Comment comment = Comment.create(command.content(), article, member);
         commentRepository.save(comment);
-        
+
         return new CreateCommentResponse(comment.getId());
     }
 

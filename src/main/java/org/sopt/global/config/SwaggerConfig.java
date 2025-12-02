@@ -12,7 +12,7 @@ import org.springframework.http.HttpHeaders;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Bofit 백엔드 API 명세서 ",
+                title = "DIVE SOPT 37기 API 명세서 ",
                 description = "Springdoc을 이용한 Swagger API 문서입니다.",
                 version = "1.0"
         )
