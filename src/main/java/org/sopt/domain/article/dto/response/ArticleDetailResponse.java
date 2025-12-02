@@ -23,9 +23,11 @@ public record ArticleDetailResponse(
 
         @Schema(description = "태그", example = "CS")
         String tag,
+
         LocalDateTime createdAt
+
 ) {
-    public static ArticleDetailResponse from(Article article){
+    public static ArticleDetailResponse from(Article article) {
         return new ArticleDetailResponse(
                 article.getId(),
                 article.getMember().getId(),
