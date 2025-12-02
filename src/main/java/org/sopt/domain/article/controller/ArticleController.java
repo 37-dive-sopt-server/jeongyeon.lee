@@ -56,4 +56,10 @@ public class ArticleController {
                                                        @Valid @RequestBody CommentRequest req){
         return BaseResponse.ok(commentService.updateComment(articleId, commentId, req.toCommand()),"댓글 수정이 완료되었습니다.");
     }
+
+    @DeleteMapping("{articleId}/{commentId}")
+    public BaseResponse<Void> deleteComment(@PathVariable Long articleId, @PathVariable Long commentId){
+        commentService.deleteComment(articleId, commentId);
+        return BaseResponse.ok("댓글 삭제가 완료되었습니다.");
+    }
 }

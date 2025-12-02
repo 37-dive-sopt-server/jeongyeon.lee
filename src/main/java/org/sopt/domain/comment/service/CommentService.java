@@ -45,11 +45,24 @@ public class CommentService {
     public CommentResponse updateComment(Long articleId, Long commentId, CommentCommand command) {
         findArticleById(articleId);
 
-        Comment comment = commentRepository.findByIdAndArticleId(commentId, articleId).orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+        Comment comment = findComment(articleId, commentId);
 
         comment.updateComment(command.content());
 
         return CommentResponse.from(comment);
+    }
+    
+    @Transactional
+    public void deleteComment(Long articleId, Long commentId) {
+        findArticleById(articleId);
+
+        Comment comment = findComment(articleId, commentId);
+
+        commentRepository.delete(comment);
+    }
+
+    private Comment findComment(Long articleId, Long commentId) {
+        return commentRepository.findByIdAndArticleId(commentId, articleId).orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
     }
 
     private Article findArticleById(Long articleId) {
