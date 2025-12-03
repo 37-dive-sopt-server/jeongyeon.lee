@@ -10,7 +10,10 @@ import org.sopt.domain.comment.repository.CommentRepository;
 import org.sopt.domain.comment.service.dto.request.CommentCommand;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.global.config.cache.CacheNameConstant;
 import org.sopt.global.exception.customexception.CustomException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,7 @@ public class CommentService {
     private final ArticleRepository articleRepository;
 
     @Transactional
+    @CacheEvict(cacheNames = CacheNameConstant.COMMENT_LIST, key = "#articleId")
     public CommentResponse createComment(Long articleId, Long memberId, CommentCommand command) {
 
         Article article = findArticleById(articleId);
@@ -64,6 +68,7 @@ public class CommentService {
         commentRepository.delete(comment);
     }
 
+    @Cacheable(cacheNames = CacheNameConstant.COMMENT_LIST, key = "#articleId")
     public CommentListResponse findAllComments(Long articleId) {
         Article article = findArticleById(articleId);
         List<Comment> articleList = commentRepository.findAllByArticle(article);
