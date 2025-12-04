@@ -1,5 +1,8 @@
 package org.sopt.domain.member.service.dto.request;
 
+import lombok.Builder;
+
+@Builder
 public record MemberCreateCommand(
         String name,
 
