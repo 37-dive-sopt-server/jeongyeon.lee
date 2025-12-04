@@ -52,6 +52,6 @@ public class Member {
     }
 
     public int getAge(){
-        return Period.between(this.birthDate, LocalDate.now()).getYears();
+        return Period.between(this.birthDate, LocalDate.now()).getYears() + 1;
     }
 }
