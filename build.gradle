@@ -57,4 +57,16 @@ dependencies {
     //Caffeine Cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+
+    //H2
+    runtimeOnly 'com.h2database:h2'
+
+    //Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.10.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
