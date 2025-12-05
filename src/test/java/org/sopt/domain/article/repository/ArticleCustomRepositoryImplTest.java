@@ -29,7 +29,7 @@ class ArticleCustomRepositoryImplTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @DisplayName("제목으로 게시물을 검색할 수 있다.")
+    @DisplayName("제목으로 아티클을 검색할 수 있다.")
     @Test
     void searchByTitle(){
        //given
@@ -50,7 +50,7 @@ class ArticleCustomRepositoryImplTest {
                 .containsExactlyInAnyOrder("test1", "test2", "test3");
     }
 
-    @DisplayName("작성자 이름으로 게시물을 검색할 수 있다.")
+    @DisplayName("작성자 이름으로 아티클을 검색할 수 있다.")
     @Test
     void searchByAuthorName(){
        //given

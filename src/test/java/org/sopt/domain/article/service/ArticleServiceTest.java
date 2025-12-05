@@ -3,8 +3,12 @@ package org.sopt.domain.article.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.sopt.domain.article.constant.ArticleSearchType;
+import org.sopt.domain.article.dto.response.ArticleCreateResponse;
+import org.sopt.domain.article.dto.response.ArticleDetailResponse;
 import org.sopt.domain.article.dto.response.ArticleListResponse;
 import org.sopt.domain.article.entity.Article;
+import org.sopt.domain.article.errorcode.ArticleErrorCode;
 import org.sopt.domain.article.fixture.ArticleFixture;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.article.service.dto.request.ArticleCreateCommand;
@@ -12,6 +16,7 @@ import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.fixture.MemberFixture;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.global.exception.customexception.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -24,6 +29,7 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -51,6 +57,95 @@ class ArticleServiceTest {
             Objects.requireNonNull(cacheManager.getCache(cacheName)).clear();
         });
     }
+
+    @DisplayName("아티클을 생성할 수 있다.")
+    @Test
+    void createArticle(){
+       //given
+        Member member = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        memberRepository.save(member);
+
+        ArticleCreateCommand command = ArticleCreateCommand.builder()
+                .title("test")
+                .content("test")
+                .tag(ArticleFixture.ARTICLE_DEFAULT_TAG.toString())
+                .build();
+
+       //when
+        ArticleCreateResponse response = articleService.createArticle(member.getId(), command);
+
+        //then
+        assertThat(response).isNotNull();
+        assertThat(response.articleId()).isEqualTo(1L);
+    }
+
+    @DisplayName("아티클 생성 시 제목이 중복되면 예외가 발생한다.")
+    @Test
+    void createArticleWithDuplicateTitle(){
+       //given
+        Member member = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        memberRepository.save(member);
+
+        Article article = ArticleFixture.getArticle("test", LocalDateTime.now(), member);
+        articleRepository.save(article);
+
+        ArticleCreateCommand command = ArticleCreateCommand.builder()
+                .title("test")
+                .content("test")
+                .tag(ArticleFixture.ARTICLE_DEFAULT_TAG.toString())
+                .build();
+
+        //when && then
+        assertThatThrownBy(() -> articleService.createArticle(member.getId(), command))
+                .hasMessage(ArticleErrorCode.ARTICLE_TITLE_DUPLICATE.getMessage());
+
+    }
+
+    @DisplayName("아티클의 상세 정보를 조회할 수 있다.")
+    @Test
+    void getArticleDetail(){
+       //given
+        Member member = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        memberRepository.save(member);
+
+        Article article = ArticleFixture.getArticle("test", LocalDateTime.now(), member);
+        articleRepository.save(article);
+
+       //when
+        ArticleDetailResponse response = articleService.getArticleDetail(article.getId());
+
+        //then
+        assertThat(response).isNotNull()
+                .extracting("title","content")
+                .contains("test", ArticleFixture.ARTICLE_DEFAULT_CONTENT);
+
+    }
+
+    @DisplayName("존재하지 않는 아티클의 상세 정보를 조회하면 예외가 발생한다.")
+    @Test
+    void getArticleDetailWithInvalidId(){
+
+        assertThatThrownBy(() -> articleService.getArticleDetail(1L))
+                .isInstanceOf(CustomException.class)
+                .hasMessage(ArticleErrorCode.ARTICLE_NOT_FOUND.getMessage());
+
+    }
+
+    @DisplayName("아티클의 제목과 작성자명으로 아티클을 검색할 수 있다.")
+    @Test
+    void searchByTitleAndAuthor(){
+       //given
+        createArticles();
+
+       //when
+        ArticleListResponse responseByTitle = articleService.searchArticleByKeyword(ArticleSearchType.TITLE, "test");
+        ArticleListResponse responseByAuthor = articleService.searchArticleByKeyword(ArticleSearchType.AUTHOR, MemberFixture.MEMBER_NAME);
+
+        //then
+        assertThat(responseByTitle.articles()).hasSize(3);
+        assertThat(responseByAuthor.articles()).hasSize(3);
+    }
+
 
     @DisplayName("아티클 목록을 조회할 수 있다.")
     @Test
