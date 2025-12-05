@@ -63,8 +63,10 @@ class MemberServiceImplTest {
        //when
         Long memberId = memberServiceImpl.join(command);
 
+        Member member = memberRepository.findById(memberId).orElseThrow();
+
         //then
-        assertThat(memberId).isEqualTo(1L);
+        assertThat(memberId).isEqualTo(member.getId());
     }
 
     @DisplayName("회원가입 시 이메일이 중복되면 예외가 발생한다.")

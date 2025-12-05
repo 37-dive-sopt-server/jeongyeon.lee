@@ -74,9 +74,10 @@ class ArticleServiceTest {
        //when
         ArticleCreateResponse response = articleService.createArticle(member.getId(), command);
 
+        Article article = articleRepository.findById(response.articleId()).orElseThrow();
         //then
         assertThat(response).isNotNull();
-        assertThat(response.articleId()).isEqualTo(1L);
+        assertThat(response.articleId()).isEqualTo(article.getId());
     }
 
     @DisplayName("아티클 생성 시 제목이 중복되면 예외가 발생한다.")
