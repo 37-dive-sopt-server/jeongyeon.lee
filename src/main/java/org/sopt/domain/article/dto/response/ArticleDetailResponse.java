@@ -1,10 +1,12 @@
 package org.sopt.domain.article.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import org.sopt.domain.article.entity.Article;
 
 import java.time.LocalDateTime;
 
+@Builder
 public record ArticleDetailResponse(
         @Schema(description = "아티클 ID", example = "1")
         Long articleId,

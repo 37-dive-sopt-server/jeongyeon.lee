@@ -2,10 +2,11 @@ package org.sopt.domain.article.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import org.sopt.domain.article.service.dto.request.ArticleCreateCommand;
 import org.sopt.global.annotation.ValidTag;
 
+@Builder
 public record ArticleCreateRequest(
 
         @NotBlank(message = "제목은 비어있을 수 없습니다.")

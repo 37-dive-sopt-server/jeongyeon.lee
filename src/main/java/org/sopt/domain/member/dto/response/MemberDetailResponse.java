@@ -1,11 +1,13 @@
 package org.sopt.domain.member.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import org.sopt.domain.member.constant.Gender;
 import org.sopt.domain.member.entity.Member;
 
 import java.time.LocalDate;
 
+@Builder
 public record MemberDetailResponse(
         @Schema(description = "회원 ID", example = "1")
         Long memberId,
