@@ -9,7 +9,7 @@ import org.sopt.domain.member.fixture.MemberFixture;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.config.QuerydslConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataJpaTest
 @ActiveProfiles("test")
 @Import(QuerydslConfig.class)
 class ArticleJpaRepositoryTest {
