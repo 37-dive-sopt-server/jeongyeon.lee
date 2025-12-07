@@ -51,6 +51,10 @@ public class Member {
                 .build();
     }
 
+    public void updatePassword(String password){
+        this.password = password;
+    }
+
     public int getAge(){
         return Period.between(this.birthDate, LocalDate.now()).getYears() + 1;
     }
