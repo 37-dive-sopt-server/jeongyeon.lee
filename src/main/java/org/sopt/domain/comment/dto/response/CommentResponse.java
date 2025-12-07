@@ -1,8 +1,10 @@
 package org.sopt.domain.comment.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import org.sopt.domain.comment.entity.Comment;
 
+@Builder
 public record CommentResponse(
         @Schema(description = "댓글 ID", example = "1")
         Long commentId,

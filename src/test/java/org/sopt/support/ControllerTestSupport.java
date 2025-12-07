@@ -2,7 +2,11 @@ package org.sopt.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.sopt.config.TestConfig;
+import org.sopt.domain.article.controller.ArticleController;
+import org.sopt.domain.article.service.ArticleService;
+import org.sopt.domain.comment.service.CommentService;
 import org.sopt.domain.member.controller.MemberController;
+import org.sopt.domain.member.service.MemberService;
 import org.sopt.global.config.SecurityConfig;
 import org.sopt.global.config.WebConfig;
 import org.sopt.global.jwt.JwtUtil;
@@ -16,7 +20,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = {MemberController.class},
+@WebMvcTest(controllers = {MemberController.class, ArticleController.class},
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
                 classes = {WebConfig.class})
         })
@@ -34,5 +38,14 @@ public abstract class ControllerTestSupport {
 
     @MockBean
     protected JpaMetamodelMappingContext mappingContext;
+
+    @MockBean
+    protected ArticleService articleService;
+
+    @MockBean
+    protected CommentService commentService;
+
+    @MockBean
+    protected MemberService memberService;
 
 }

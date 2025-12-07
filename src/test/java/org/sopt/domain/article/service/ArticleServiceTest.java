@@ -202,6 +202,8 @@ class ArticleServiceTest {
         verify(articleRepository, times(2)).findAll();
     }
 
+
+
     private void createArticles() {
         Member member = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
         memberRepository.save(member);

@@ -2,8 +2,10 @@ package org.sopt.domain.comment.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import org.sopt.domain.comment.service.dto.request.CommentCommand;
 
+@Builder
 public record CommentRequest(
         @Schema(description = "댓글 내용", example = "ㅎㅇㅎㅇ")
         @NotBlank(message = "댓글 내용은 필수입니다.")

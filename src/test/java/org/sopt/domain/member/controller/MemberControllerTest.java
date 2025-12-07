@@ -7,21 +7,16 @@ import org.sopt.domain.member.dto.request.MemberCreateRequest;
 import org.sopt.domain.member.dto.response.MemberDetailResponse;
 import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.fixture.MemberFixture;
-import org.sopt.domain.member.service.MemberService;
 import org.sopt.domain.member.service.dto.request.MemberCreateCommand;
 import org.sopt.support.ControllerTestSupport;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,9 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 class MemberControllerTest extends ControllerTestSupport {
-
-    @MockBean
-    private MemberService memberService;
 
     @DisplayName("회원 가입을 수행한다.")
     @Test
@@ -45,6 +37,9 @@ class MemberControllerTest extends ControllerTestSupport {
                 .gender(Gender.MALE.toString())
                 .build();
 
+        given(memberService.join(any(MemberCreateCommand.class)))
+                        .willReturn(1L);
+
        //when && then
         mockMvc.perform(
                 post("/members")
@@ -53,7 +48,9 @@ class MemberControllerTest extends ControllerTestSupport {
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.data").value(1))
+        ;
     }
 
     @DisplayName("회원 가입 시 이름이 비어있으면 예외가 발생한다.")
@@ -130,7 +127,14 @@ class MemberControllerTest extends ControllerTestSupport {
     @Test
     void findMemberById() throws Exception {
        //given
-       when(memberService.join(any(MemberCreateCommand.class))).thenReturn(anyLong());
+        MemberDetailResponse response = MemberDetailResponse.builder()
+                .memberId(1L)
+                .name(MemberFixture.MEMBER_NAME)
+                .birthDate(MemberFixture.MEMBER_YOUNG_BIRTHDATE)
+                .email(MemberFixture.MEMBER_EMAIL)
+                .gender(Gender.MALE)
+                .build();
+        given(memberService.getMemberDetail(1L)).willReturn(response);
 
        //when && then
         mockMvc.perform(
@@ -138,7 +142,8 @@ class MemberControllerTest extends ControllerTestSupport {
         )
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("회원 조회 완료"));
+                .andExpect(jsonPath("$.message").value("회원 조회 완료"))
+                .andExpect(jsonPath("$.data.memberId").value(1L));
     }
 
     @DisplayName("회원 전체 조회를 수행한다.")
