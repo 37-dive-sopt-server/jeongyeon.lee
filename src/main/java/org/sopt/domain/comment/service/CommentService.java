@@ -71,7 +71,7 @@ public class CommentService {
     @Cacheable(cacheNames = CacheNameConstant.COMMENT_LIST, key = "#articleId")
     public CommentListResponse findAllComments(Long articleId) {
         Article article = findArticleById(articleId);
-        List<Comment> articleList = commentRepository.findAllByArticle(article);
+        List<Comment> articleList = commentRepository.findAllByArticleOrderByCreatedAtDesc(article);
         return CommentListResponse.from(articleList);
     }
 

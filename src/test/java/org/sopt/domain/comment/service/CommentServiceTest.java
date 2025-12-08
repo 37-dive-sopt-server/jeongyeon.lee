@@ -207,7 +207,7 @@ class CommentServiceTest {
                 .forEach(i -> commentService.findAllComments(article.getId()));
 
        //then
-        verify(commentRepository, times(1)).findAllByArticle(any(Article.class));
+        verify(commentRepository, times(1)).findAllByArticleOrderByCreatedAtDesc(any(Article.class));
     }
 
     @DisplayName("댓글 목록을 조회 캐싱 후 새로운 댓글이 추가되면 기존 캐시는 삭제되고 새로운 쿼리가 발생한다.")
@@ -233,7 +233,7 @@ class CommentServiceTest {
         IntStream.range(0, 10)
                 .forEach(i -> commentService.findAllComments(article.getId()));
        //then
-        verify(commentRepository, times(2)).findAllByArticle(any(Article.class));
+        verify(commentRepository, times(2)).findAllByArticleOrderByCreatedAtDesc(any(Article.class));
 
     }
 

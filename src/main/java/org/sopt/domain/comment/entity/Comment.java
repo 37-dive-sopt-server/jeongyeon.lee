@@ -6,16 +6,24 @@ import org.sopt.domain.article.entity.Article;
 import org.sopt.domain.comment.errorcode.CommentErrorCode;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.global.exception.customexception.CustomException;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Table(
         name = "comment",
         indexes = {
-                @Index(name = "idx_comment_article_id", columnList = "article_id"),
-                @Index(name = "idx_comment_member_id", columnList = "member_id")
+                @Index(
+                        name = "idx_comment_article_comment",
+                        columnList = "article_id, comment_id"
+                ),
+                @Index(name = "idx_comment_created_at", columnList = "created_at")
         }
 )
 public class Comment {
@@ -26,6 +34,9 @@ public class Comment {
 
     @Column(nullable = false)
     private String content;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "article_id")

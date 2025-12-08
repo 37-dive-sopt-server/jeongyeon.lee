@@ -57,7 +57,7 @@ class CommentRepositoryTest {
 
     @DisplayName("아티클의 댓글 목록을 조회할 수 있다.")
     @Test
-    void findAllByArticle(){
+    void findAllByArticleOrderByCreatedAtDesc(){
        //given
         Member member = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
         memberRepository.save(member);
@@ -68,7 +68,7 @@ class CommentRepositoryTest {
         createComments(article, member);
 
         //when
-        List<Comment> articleList = commentRepository.findAllByArticle(article);
+        List<Comment> articleList = commentRepository.findAllByArticleOrderByCreatedAtDesc(article);
 
         //then
         assertThat(articleList).hasSize(3);
