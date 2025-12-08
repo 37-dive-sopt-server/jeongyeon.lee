@@ -22,15 +22,20 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private LocalDate birthDate;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Gender gender;
 
     @OneToMany(mappedBy = "member")
