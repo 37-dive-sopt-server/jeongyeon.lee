@@ -11,16 +11,20 @@ import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.article.service.dto.request.ArticleCreateCommand;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.service.MemberServiceImpl;
+import org.sopt.global.config.cache.CacheNameConstant;
 import org.sopt.global.exception.customexception.CustomException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.sopt.domain.article.errorcode.ArticleErrorCode.*;
+import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_NOT_FOUND;
+import static org.sopt.domain.article.errorcode.ArticleErrorCode.ARTICLE_TITLE_DUPLICATE;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ArticleService {
 
@@ -28,6 +32,8 @@ public class ArticleService {
 
     private final MemberServiceImpl memberService;
 
+    @Transactional
+    @CacheEvict(value = CacheNameConstant.ARTICLE_LIST, allEntries = true)
     public ArticleCreateResponse createArticle(Long memberId, ArticleCreateCommand command) {
         checkTitleDuplicate(command.title());
 
@@ -51,7 +57,7 @@ public class ArticleService {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = CacheNameConstant.ARTICLE_DETAIL, key = "#articleId")
     public ArticleDetailResponse getArticleDetail(Long articleId){
         Article article = findById(articleId);
         return ArticleDetailResponse.from(article);
@@ -61,12 +67,11 @@ public class ArticleService {
         return articleRepository.findById(articleId).orElseThrow(() -> new CustomException(ARTICLE_NOT_FOUND));
     }
 
-    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = CacheNameConstant.ARTICLE_LIST)
     public ArticleListResponse getArticleList(){
-        return ArticleListResponse.from(articleRepository.findAll());
+        return ArticleListResponse.from(articleRepository.findAllOrderByCreatedAtDesc());
     }
 
-    @Transactional(readOnly = true)
     public ArticleListResponse searchArticleByKeyword(ArticleSearchType type, String keyword) {
         List<Article> articles = switch (type) {
             case AUTHOR -> articleRepository.searchByAuthorName(keyword);

@@ -71,7 +71,7 @@ public class AuthService {
                 .orElseThrow(() -> new CustomException(REFRESH_NOT_FOUND));
 
         if (!savedToken.getRefreshToken().equals(refreshToken)) {
-            throw new CustomException(REFRESH_MISMATHCES);
+            throw new CustomException(REFRESH_MISMATCH);
         }
 
         String newAccessToken = jwtProvider.generateAccessToken(memberId);

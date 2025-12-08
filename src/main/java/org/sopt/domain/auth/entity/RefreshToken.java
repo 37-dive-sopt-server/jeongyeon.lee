@@ -19,8 +19,8 @@ public class RefreshToken {
     @Column(nullable = false, length = 500)
     private String refreshToken;
 
-    public static RefreshToken of(Long userId, String refreshToken) {
-        return new RefreshToken(userId, refreshToken);
+    public static RefreshToken of(Long memberId, String refreshToken) {
+        return new RefreshToken(memberId, refreshToken);
     }
 
     public void updateToken(String token) {

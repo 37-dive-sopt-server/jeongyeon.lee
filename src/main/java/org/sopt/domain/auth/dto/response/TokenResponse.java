@@ -1,7 +1,9 @@
 package org.sopt.domain.auth.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 
+@Builder
 public record TokenResponse(
         @Schema(description = "멤버 ID", example = "1")
         Long memberId,

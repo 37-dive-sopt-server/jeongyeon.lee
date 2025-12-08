@@ -1,10 +1,12 @@
 package org.sopt.domain.article.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import org.sopt.domain.article.entity.Article;
 
 import java.time.LocalDateTime;
 
+@Builder
 public record ArticleDetailResponse(
         @Schema(description = "아티클 ID", example = "1")
         Long articleId,
@@ -23,9 +25,11 @@ public record ArticleDetailResponse(
 
         @Schema(description = "태그", example = "CS")
         String tag,
+
         LocalDateTime createdAt
+
 ) {
-    public static ArticleDetailResponse from(Article article){
+    public static ArticleDetailResponse from(Article article) {
         return new ArticleDetailResponse(
                 article.getId(),
                 article.getMember().getId(),

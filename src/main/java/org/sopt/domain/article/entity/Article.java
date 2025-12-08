@@ -16,6 +16,15 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
+@Table(
+        name = "article",
+        indexes = {
+                @Index(name = "idx_article_created_at", columnList = "created_at")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "ux_article_title", columnNames = "title")
+        }
+)
 public class Article {
 
     @Id

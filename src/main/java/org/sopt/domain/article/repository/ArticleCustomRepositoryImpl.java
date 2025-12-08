@@ -16,6 +16,7 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
         QArticle article = QArticle.article;
         return queryFactory.selectFrom(article)
                 .where(article.title.contains(title))
+                .orderBy(article.createdAt.desc())
                 .fetch();
     }
 
@@ -24,6 +25,7 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
         QArticle article = QArticle.article;
         return queryFactory.selectFrom(article)
                 .where(article.member.name.contains(authorName))
+                .orderBy(article.createdAt.desc())
                 .fetch();
     }
 }

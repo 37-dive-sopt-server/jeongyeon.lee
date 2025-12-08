@@ -2,16 +2,19 @@ package org.sopt.domain.member.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import org.sopt.domain.member.service.dto.request.MemberCreateCommand;
 import org.sopt.global.annotation.ValidEmail;
 import org.sopt.global.annotation.ValidGender;
 
+@Builder
 public record MemberCreateRequest(
         @NotBlank(message = "이름은 필수 입력 사항입니다.")
         @Schema(description = "이름", example = "이정연")
         String name,
 
         @Schema(description = "비밀번호", example = "1234")
+        @NotBlank(message = "비밀번호는 필수 입력 사항입니다.")
         String password,
 
         @NotBlank(message = "생년월일은 필수 입력 사항입니다.")
