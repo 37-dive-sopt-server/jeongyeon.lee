@@ -15,6 +15,12 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(
+        name = "member",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "ux_member_email", columnNames = "email")
+        }
+)
 public class Member {
 
     @Id

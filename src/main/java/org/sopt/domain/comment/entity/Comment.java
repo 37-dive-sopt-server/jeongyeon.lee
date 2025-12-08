@@ -11,6 +11,13 @@ import org.sopt.global.exception.customexception.CustomException;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(
+        name = "comment",
+        indexes = {
+                @Index(name = "idx_comment_article_id", columnList = "article_id"),
+                @Index(name = "idx_comment_member_id", columnList = "member_id")
+        }
+)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
