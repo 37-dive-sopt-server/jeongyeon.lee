@@ -69,7 +69,7 @@ public class ArticleService {
 
     @Cacheable(cacheNames = CacheNameConstant.ARTICLE_LIST)
     public ArticleListResponse getArticleList(){
-        return ArticleListResponse.from(articleRepository.findAllOrderByCreatedAt());
+        return ArticleListResponse.from(articleRepository.findAllOrderByCreatedAtDesc());
     }
 
     public ArticleListResponse searchArticleByKeyword(ArticleSearchType type, String keyword) {

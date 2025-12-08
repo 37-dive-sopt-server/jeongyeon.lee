@@ -172,7 +172,7 @@ class ArticleServiceTest {
                 .forEach(i -> articleService.getArticleList());
 
        //then
-        verify(articleRepository, times(1)).findAll();
+        verify(articleRepository, times(1)).findAllOrderByCreatedAtDesc();
     }
 
     @DisplayName("아티클 목록 조회 캐싱 후 새로운 아티클이 추가되면 기존 캐시는 삭제되고 새로운 쿼리가 실행된다.")
@@ -199,7 +199,7 @@ class ArticleServiceTest {
         IntStream.range(0, 10)
                 .forEach(i -> articleService.getArticleList());
        //then
-        verify(articleRepository, times(2)).findAll();
+        verify(articleRepository, times(2)).findAllOrderByCreatedAtDesc();
     }
 
 

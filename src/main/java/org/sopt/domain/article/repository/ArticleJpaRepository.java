@@ -11,5 +11,5 @@ public interface ArticleJpaRepository extends JpaRepository<Article, Long> {
     boolean existsByTitle(String title);
 
     @Query("select a from Article a order by a.createdAt desc")
-    List<Article> findAllOrderByCreatedAt();
+    List<Article> findAllOrderByCreatedAtDesc();
 }
