@@ -1,5 +1,6 @@
 package org.sopt.domain.auth.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sopt.domain.auth.dto.response.TokenResponse;
@@ -42,6 +43,12 @@ class AuthServiceTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @AfterEach
+    void tearDown() {
+        refreshTokenRepository.deleteAllInBatch();
+        memberRepository.deleteAllInBatch();
+    }
 
     @DisplayName("로그인에 성공한다.")
     @Test
