@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Table(
         name = "article",
         indexes = {
-                @Index(name = "idx_article_author_name", columnList = "author_name"),
                 @Index(name = "idx_article_created_at", columnList = "created_at")
         },
         uniqueConstraints = {
