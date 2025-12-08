@@ -15,6 +15,16 @@ public class MemberFixture {
     public static final LocalDate MEMBER_YOUNG_BIRTHDATE = LocalDate.of(2010,11,12);
 
 
+    public static Member getmember(String email, LocalDate birthDate){
+        return Member.builder()
+                .password(MEMBER_PASSWORD)
+                .name(MEMBER_NAME)
+                .birthDate(birthDate)
+                .email(email)
+                .gender(Gender.MALE)
+                .build();
+    }
+
     public static Member getmember(LocalDate birthDate){
         return Member.builder()
                 .password(MEMBER_PASSWORD)

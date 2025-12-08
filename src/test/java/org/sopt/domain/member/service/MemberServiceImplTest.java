@@ -162,9 +162,9 @@ class MemberServiceImplTest {
         assertThat(memberListResponse.members()).hasSize(3)
                 .extracting("email","name")
                 .containsExactlyInAnyOrder(
-                        Tuple.tuple(MemberFixture.MEMBER_EMAIL, MemberFixture.MEMBER_NAME),
-                        Tuple.tuple(MemberFixture.MEMBER_EMAIL, MemberFixture.MEMBER_NAME),
-                        Tuple.tuple(MemberFixture.MEMBER_EMAIL, MemberFixture.MEMBER_NAME)
+                        Tuple.tuple("test1@test.com", MemberFixture.MEMBER_NAME),
+                        Tuple.tuple("test2@test.com", MemberFixture.MEMBER_NAME),
+                        Tuple.tuple("test3@test.com", MemberFixture.MEMBER_NAME)
                 );
     }
 
@@ -195,7 +195,7 @@ class MemberServiceImplTest {
                 .forEach(i -> memberServiceImpl.findAllMembers());
 
         MemberCreateCommand command = MemberCreateCommand.builder()
-                .email("test1@test.com")
+                .email("test4@test.com")
                 .name(MemberFixture.MEMBER_NAME)
                 .password(MemberFixture.MEMBER_PASSWORD)
                 .birthDate(MemberFixture.MEMBER_DEFAULT_BIRTHDATE.toString())
@@ -211,11 +211,10 @@ class MemberServiceImplTest {
     }
 
 
-
     private void createMembers() {
-        Member member1 = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
-        Member member2 = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
-        Member member3 = MemberFixture.getmember(MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        Member member1 = MemberFixture.getmember("test1@test.com",MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        Member member2 = MemberFixture.getmember("test2@test.com",MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
+        Member member3 = MemberFixture.getmember("test3@test.com",MemberFixture.MEMBER_DEFAULT_BIRTHDATE);
         memberRepository.saveAll(List.of(member1, member2, member3));
     }
 
